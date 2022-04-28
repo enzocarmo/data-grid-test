@@ -109,26 +109,37 @@ export default {
         editButton: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Edit' } } },
+            navigator: {
+                group: 'Edit Buttons',
+            },
         },
         cancelButton: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Cancel' } } },
+            navigator: {
+                group: 'Edit Buttons',
+            },
         },
         validEditButton: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Validate' } } },
+            navigator: {
+                group: 'Edit Buttons',
+            },
         },
-        columnsElementRead: {
+        columnsElement: {
             hidden: true,
             defaultValue: {},
-        },
-        columnsElementWrite: {
-            hidden: true,
-            defaultValue: {},
+            navigator: {
+                group: 'Cells',
+            },
         },
         headerTextElements: {
             hidden: true,
             defaultValue: {},
+            navigator: {
+                group: 'Headers',
+            },
         },
     },
 };

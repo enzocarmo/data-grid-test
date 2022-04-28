@@ -1,8 +1,7 @@
 <template>
     <td class="ww-data-grid-cell">
         <template v-if="column && element">
-            <wwElement v-if="type === 'ww-text'" :ww-props="{ text: value }" :uid="element.uid"></wwElement>
-            <wwElement v-else-if="['checkbox', 'custom'].includes(column.type)" :uid="element.uid"></wwElement>
+            <wwElement v-if="type === 'ww-text'" :ww-props="{ value, readonly: !edit }" :uid="element.uid"></wwElement>
             <!-- wwEditor:start -->
             <div v-else class="message ww-typo-sub-text flex items-center">No component loaded</div>
             <!-- wwEditor:end -->
@@ -18,8 +17,7 @@ export default {
     props: {
         column: { type: String, required: true },
         item: { type: Object, required: true },
-        columnsElementRead: { type: Object, required: true },
-        columnsElementWrite: { type: Object, required: true },
+        columnsElement: { type: Object, required: true },
         edit: { type: Boolean, default: false },
     },
     computed: {
@@ -33,11 +31,7 @@ export default {
         },
         element() {
             if (!this.column) return null;
-            if (this.edit) {
-                return this.columnsElementRead[this.column.id] || this.columnsElementWrite[this.column.id];
-            } else {
-                return this.columnsElementRead[this.column.id];
-            }
+            return this.columnsElement[this.column.id];
         },
     },
 };

@@ -17,8 +17,7 @@
                 :key="getRowId(item, rowIndex)"
                 :item="item"
                 :columns="content.columns"
-                :columns-element-read="content.columnsElementRead"
-                :columns-element-write="content.columnsElementWrite"
+                :columns-element="content.columnsElement"
                 :is-edit-available="content.inlineEditing"
                 :edit="editingId !== undefined && getRowId(item) === editingId"
                 :edit-button="content.editButton"
@@ -31,7 +30,7 @@
 </template>
 
 <script>
-import { TYPE_OF_ELEMENTS_READ, TYPE_OF_ELEMENTS_WRITE } from './constants';
+import { TYPE_OF_ELEMENTS } from './constants';
 import DataGridRow from './DataGridRow.vue';
 
 export default {
@@ -64,44 +63,23 @@ export default {
             handler(columns) {
                 if (!Array.isArray(columns)) return;
                 columns.forEach(async ({ type, id, label }) => {
-                    const readType = TYPE_OF_ELEMENTS_READ[type];
-                    const writeType = TYPE_OF_ELEMENTS_WRITE[type];
-                    if (!this.content.columnsElementRead[id] || this.content.columnsElementRead[id].type !== readType) {
+                    // TODO: IDEA: if element of this type already exist, clone it?
+                    if (
+                        !this.content.columnsElement[id] ||
+                        this.content.columnsElement[id].type !== TYPE_OF_ELEMENTS[type]
+                    ) {
                         const element = await wwLib.createElement(
-                            readType,
+                            TYPE_OF_ELEMENTS[type],
                             {},
                             { name: `Cell - ${label}` },
                             this.wwFrontState.sectionId
                         );
                         this.$emit('update:content:effect', {
-                            columnsElementRead: {
-                                ...this.content.columnsElementRead,
-                                [id]: { ...element, type: readType },
+                            columnsElement: {
+                                ...this.content.columnsElement,
+                                [id]: { ...element, type: TYPE_OF_ELEMENTS[type] },
                             },
                         });
-                    }
-                    if (
-                        !this.content.columnsElementWrite[id] ||
-                        this.content.columnsElementWrite[id].type !== writeType
-                    ) {
-                        if (writeType) {
-                            const element = await wwLib.createElement(
-                                writeType,
-                                {},
-                                { name: `Cell (Read) - ${label}` },
-                                this.wwFrontState.sectionId
-                            );
-                            this.$emit('update:content:effect', {
-                                columnsElementWrite: {
-                                    ...this.content.columnsElementWrite,
-                                    [id]: { ...element, type: writeType },
-                                },
-                            });
-                        } else if (this.content.columnsElementWrite[id]) {
-                            const columnsElementWrite = { ...this.columnsElementWrite };
-                            delete columnsElementWrite[id];
-                            this.$emit('update:content:effect', { columnsElementWrite });
-                        }
                     }
                 });
             },

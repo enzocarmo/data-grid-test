@@ -6,8 +6,7 @@
             :column="column"
             :item="item"
             :edit="edit"
-            :columns-element-read="columnsElementRead"
-            :columns-element-write="columnsElementWrite"
+            :columns-element="columnsElement"
         >
         </DataGridCell>
         <DataGridActionCell
@@ -32,8 +31,7 @@ export default {
         id: { type: undefined, required: true },
         item: { type: Object, required: true },
         columns: { type: Array, required: true },
-        columnsElementRead: { type: Object, required: true },
-        columnsElementWrite: { type: Object, required: true },
+        columnsElement: { type: Object, required: true },
         isEditAvailable: { type: Boolean, default: false },
         editButton: { type: Object, required: true },
         validEditButton: { type: Object, required: true },
