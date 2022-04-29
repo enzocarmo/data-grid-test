@@ -1,11 +1,22 @@
 function getDataObject(content) {
-    if (!content.data || !Array.isArray(content.data)) {
-        return [];
+    if (!content.data) return {};
+    if (Array.isArray(content.data)) {
+        return content.data[0] || {};
     }
-    return content.data[0] || {};
+    if (Array.isArray(content.data.data)) {
+        return content.data.data[0] || {};
+    }
+    return {};
 }
 function hasData(content) {
-    return Array.isArray(content.data) && content.data.length;
+    if (!content.data) return false;
+    if (Array.isArray(content.data)) {
+        return content.data.length;
+    }
+    if (Array.isArray(content.data.data)) {
+        return content.data.data.length;
+    }
+    return false;
 }
 
 export default {
@@ -18,6 +29,7 @@ export default {
             icon: 'data-grid',
         },
     },
+    triggerEvents: [{ name: 'update:row', label: { en: 'On Row update' }, event: { value: '', id: '' } }],
     properties: {
         data: {
             label: {

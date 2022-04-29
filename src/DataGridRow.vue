@@ -3,12 +3,16 @@
         <DataGridCell
             v-for="column in columns"
             :key="column.id"
+            :ref="el => registerCellRef(column.id, el)"
             :column="column"
             :item="item"
             :edit="edit"
             :columns-element="columnsElement"
         >
         </DataGridCell>
+        <span v-if="!columns || !columns.length" class="message ww-typo-sub-text flex items-center">
+            Please define a column
+        </span>
         <DataGridActionCell
             v-if="isEditAvailable"
             :id="id"
@@ -17,6 +21,7 @@
             :cancel-button="cancelButton"
             :edit="edit"
             @update:edit="$emit('update:edit', $event)"
+            @validate="onValidate"
         ></DataGridActionCell>
     </tr>
 </template>
@@ -38,6 +43,39 @@ export default {
         cancelButton: { type: Object, required: true },
         edit: { type: Boolean, default: false },
     },
-    emits: ['update:edit'],
+    emits: ['update:edit', 'update:row'],
+    data() {
+        return {
+            cellRefs: {},
+        };
+    },
+    methods: {
+        onValidate() {
+            const item = _.cloneDeep(this.item);
+            Object.values(this.cellRefs).forEach(row => {
+                // TODO: check if this exist in published website
+                _.set(item, row.column && row.column.path, _.cloneDeep(row.internalValue));
+            });
+            this.$emit('update:row', { value: item, id: this.id });
+            this.$emit('update:edit', false);
+        },
+        // TODO: we need higher vue version to have auto ref array
+        registerCellRef(id, el) {
+            if (el) {
+                this.cellRefs[id] = el;
+            }
+        },
+    },
 };
 </script>
+
+<style lang="scss" scoped>
+/* wwEditor:start */
+.message {
+    padding: var(--ww-spacing-02);
+    color: var(--ww-color-theme-dark-800);
+    background-color: var(--ww-color-theme-dark-50);
+    border: 1px solid var(--ww-color-theme-dark-100);
+}
+/* wwEditor:end */
+</style>

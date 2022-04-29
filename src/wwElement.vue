@@ -9,23 +9,25 @@
             </th>
             <th v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }"></th>
         </thead>
-        <tbody>
-            <!-- // TODO: add if forced editing  -->
-            <DataGridRow
-                v-for="(item, rowIndex) in content.data"
-                :id="getRowId(item)"
-                :key="getRowId(item, rowIndex)"
-                :item="item"
-                :columns="content.columns"
-                :columns-element="content.columnsElement"
-                :is-edit-available="content.inlineEditing"
-                :edit="editingId !== undefined && getRowId(item) === editingId"
-                :edit-button="content.editButton"
-                :valid-edit-button="content.validEditButton"
-                :cancel-button="content.cancelButton"
-                @update:edit="setEdit($event, getRowId(item))"
-            />
-        </tbody>
+        <!-- // TODO: add if forced editing  -->
+        <wwLayout path="data" tag="tbody" class="body" disable-edit>
+            <template #default="{ index: rowIndex, data: item }">
+                <DataGridRow
+                    :id="getRowId(item)"
+                    :key="getRowId(item, rowIndex)"
+                    :item="item"
+                    :columns="content.columns"
+                    :columns-element="content.columnsElement"
+                    :is-edit-available="content.inlineEditing"
+                    :edit="editingId !== undefined && getRowId(item) === editingId"
+                    :edit-button="content.editButton"
+                    :valid-edit-button="content.validEditButton"
+                    :cancel-button="content.cancelButton"
+                    @update:edit="setEdit($event, getRowId(item))"
+                    @update:row="$emit('trigger-event', { name: 'update:row', event: $event })"
+                />
+            </template>
+        </wwLayout>
     </table>
 </template>
 
@@ -42,7 +44,7 @@ export default {
         wwEditorState: { type: Object, required: true },
         /* wwEditor:end */
     },
-    emits: ['update:content', 'update:content:effect'],
+    emits: ['update:content', 'update:content:effect', 'trigger-event'],
     data() {
         return {
             editingId: undefined,
@@ -62,7 +64,7 @@ export default {
             deep: true,
             handler(columns) {
                 if (!Array.isArray(columns)) return;
-                columns.forEach(async ({ type, id, label }) => {
+                columns.forEach(async ({ type, id }) => {
                     // TODO: IDEA: if element of this type already exist, clone it?
                     if (
                         !this.content.columnsElement[id] ||
@@ -71,7 +73,7 @@ export default {
                         const element = await wwLib.createElement(
                             TYPE_OF_ELEMENTS[type],
                             {},
-                            { name: `Cell - ${label}` },
+                            { name: `Cell - ${type}` },
                             this.wwFrontState.sectionId
                         );
                         this.$emit('update:content:effect', {
@@ -138,5 +140,8 @@ export default {
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
+    .body {
+        display: table-row-group;
+    }
 }
 </style>

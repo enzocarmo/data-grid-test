@@ -1,17 +1,20 @@
 <template>
     <td>
-        {{}}
         <div class="ww-data-grid-action-cell flex items-center">
             <!-- wwEditor:start -->
             <div v-if="id === undefined" class="message ww-typo-sub-text">Please provide an id path</div>
             <wwElement v-else-if="!edit" v-bind="editButton" @click="$emit('update:edit', !edit)"></wwElement>
             <template v-else>
-                <wwElement v-bind="validEditButton" @click="$emit('update:edit', false)"></wwElement>
+                <wwElement v-bind="validEditButton" @click="$emit('validate')"></wwElement>
                 <wwElement v-bind="cancelButton" @click="$emit('update:edit', false)"></wwElement>
             </template>
             <!-- wwEditor:end -->
             <!-- wwFront:start -->
-            <wwElement v-bind="editButton" @click="$emit('update:edit', !edit)"></wwElement>
+            <wwElement v-if="!edit" v-bind="editButton" @click="$emit('update:edit', !edit)"></wwElement>
+            <template v-else>
+                <wwElement v-bind="validEditButton" @click="$emit('validate')"></wwElement>
+                <wwElement v-bind="cancelButton" @click="$emit('update:edit', false)"></wwElement>
+            </template>
             <!-- wwFront:end -->
         </div>
     </td>
@@ -26,7 +29,7 @@ export default {
         cancelButton: { type: Object, required: true },
         edit: { type: Boolean, default: false },
     },
-    emits: ['update:edit'],
+    emits: ['update:edit', 'validate'],
 };
 </script>
 
