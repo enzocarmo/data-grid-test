@@ -53,8 +53,9 @@ export default {
         onValidate() {
             const item = _.cloneDeep(this.item);
             Object.values(this.cellRefs).forEach(row => {
-                // TODO: check if this exist in published website
-                _.set(item, row.column && row.column.path, _.cloneDeep(row.internalValue));
+                if (row.column && row.column.type !== 'custom') {
+                    _.set(item, row.column && row.column.path, _.cloneDeep(row.internalValue));
+                }
             });
             this.$emit('update:row', { value: item, id: this.id });
             this.$emit('update:edit', false);

@@ -85,7 +85,7 @@ export default {
                                     options: [
                                         { value: 'text', label: 'Text' },
                                         { value: 'select', label: 'Select' },
-                                        { value: 'checkbox', label: 'Checkbox' },
+                                        // { value: 'checkbox', label: 'Checkbox' },
                                         { value: 'custom', label: 'Custom' },
                                     ],
                                 },
