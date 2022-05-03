@@ -91,6 +91,7 @@ export default {
         getRowId(item, rowIndex) {
             return _.get(item, this.content.dataIdPath, rowIndex);
         },
+        /* wwEditor:start */
         async addColumn() {
             const columns = [...this.content.columns];
             const id = wwLib.wwUtils.getUid();
@@ -99,7 +100,7 @@ export default {
             headerTextElements[id] = await wwLib.createElement(
                 'ww-text',
                 {},
-                { name: `Header ${columns.length + 1}` },
+                { name: `Header ${columns.length}` },
                 this.wwFrontState.sectionId
             );
             this.$emit('update:content', { columns, headerTextElements });
@@ -125,6 +126,7 @@ export default {
             }
             this.$emit('update:content', update);
         },
+        /* wwEditor:end */
         setEdit(value, id) {
             /* wwEditor:start */
             if (this.isEditing) return;
