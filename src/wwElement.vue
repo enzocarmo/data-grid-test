@@ -66,6 +66,7 @@ export default {
                 if (!Array.isArray(columns)) return;
                 columns.forEach(async ({ type, id }) => {
                     // TODO: IDEA: if element of this type already exist, clone it?
+                    // TODO: isACopy
                     if (
                         !this.content.columnsElement[id] ||
                         this.content.columnsElement[id].type !== TYPE_OF_ELEMENTS[type]
@@ -109,15 +110,10 @@ export default {
             const columns = [...this.content.columns];
             const col = columns.splice(index, 1);
             let update = { columns };
-            if (this.content.columnsElementRead[col.id]) {
-                const columnsElementRead = { ...this.content.columnsElementRead };
-                delete columnsElementRead[col.id];
-                update.columnsElementRead = columnsElementRead;
-            }
-            if (this.content.columnsElementWrite[col.id]) {
-                const columnsElementWrite = { ...this.content.columnsElementWrite };
-                delete columnsElementWrite[col.id];
-                update.columnsElementWrite = columnsElementWrite;
+            if (this.content.columnsElement[col.id]) {
+                const columnsElement = { ...this.content.columnsElement };
+                delete columnsElement[col.id];
+                update.columnsElement = columnsElement;
             }
             if (this.content.headerTextElements[col.id]) {
                 const headerTextElements = { ...this.content.headerTextElements };

@@ -29,7 +29,10 @@ export default {
             icon: 'data-grid',
         },
     },
-    triggerEvents: [{ name: 'update:row', label: { en: 'On Row update' }, event: { value: '', id: '' } }],
+    triggerEvents: [
+        { name: 'update:row', label: { en: 'On Row update' }, event: { value: '', id: '' } },
+        { name: 'remove:row', label: { en: 'On Row delete' }, event: { value: '', id: '' } },
+    ],
     properties: {
         data: {
             label: {
@@ -103,6 +106,7 @@ export default {
                 },
                 add: 'addColumn',
                 remove: 'removeColumn',
+                movable: true,
             },
             defaultValue: [],
         },
@@ -121,6 +125,13 @@ export default {
         editButton: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Edit' } } },
+            navigator: {
+                group: 'Edit Buttons',
+            },
+        },
+        deleteButton: {
+            hidden: true,
+            defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Delete' } } },
             navigator: {
                 group: 'Edit Buttons',
             },
