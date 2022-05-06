@@ -3,14 +3,20 @@
         <div class="ww-data-grid-action-cell flex items-center">
             <!-- wwEditor:start -->
             <div v-if="id === undefined" class="message ww-typo-sub-text">Please provide an id path</div>
-            <wwElement v-else-if="!edit" v-bind="editButton" @click="$emit('update:edit', !edit)"></wwElement>
+            <template v-else-if="!edit">
+                <wwElement v-bind="editButton" @click="$emit('update:edit', !edit)"></wwElement>
+                <wwElement v-bind="deleteButton" @click="$emit('delete')"></wwElement>
+            </template>
             <template v-else>
                 <wwElement v-bind="validEditButton" @click="$emit('validate')"></wwElement>
                 <wwElement v-bind="cancelButton" @click="$emit('update:edit', false)"></wwElement>
             </template>
             <!-- wwEditor:end -->
             <!-- wwFront:start -->
-            <wwElement v-if="!edit" v-bind="editButton" @click="$emit('update:edit', !edit)"></wwElement>
+            <template v-if="!edit">
+                <wwElement v-bind="editButton" @click="$emit('update:edit', !edit)"></wwElement>
+                <wwElement v-bind="deleteButton" @click="$emit('delete')"></wwElement>
+            </template>
             <template v-else>
                 <wwElement v-bind="validEditButton" @click="$emit('validate')"></wwElement>
                 <wwElement v-bind="cancelButton" @click="$emit('update:edit', false)"></wwElement>
@@ -27,9 +33,10 @@ export default {
         editButton: { type: Object, required: true },
         validEditButton: { type: Object, required: true },
         cancelButton: { type: Object, required: true },
+        deleteButton: { type: Object, required: true },
         edit: { type: Boolean, default: false },
     },
-    emits: ['update:edit', 'validate'],
+    emits: ['update:edit', 'validate', 'delete'],
 };
 </script>
 

@@ -31,7 +31,7 @@ export default {
     },
     triggerEvents: [
         { name: 'update:row', label: { en: 'On Row update' }, event: { value: '', id: '' } },
-        { name: 'remove:row', label: { en: 'On Row delete' }, event: { value: '', id: '' } },
+        { name: 'delete:row', label: { en: 'On Row delete' }, event: { value: '', id: '' } },
     ],
     properties: {
         data: {

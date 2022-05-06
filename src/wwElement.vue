@@ -23,8 +23,10 @@
                     :edit-button="content.editButton"
                     :valid-edit-button="content.validEditButton"
                     :cancel-button="content.cancelButton"
+                    :delete-button="content.deleteButton"
                     @update:edit="setEdit($event, getRowId(item))"
                     @update:row="$emit('trigger-event', { name: 'update:row', event: $event })"
+                    @delete:row="$emit('trigger-event', { name: 'delete:row', event: $event })"
                 />
             </template>
         </wwLayout>
@@ -60,13 +62,13 @@ export default {
         },
     },
     watch: {
+        /* wwEditor:start */
         'content.columns': {
             deep: true,
             handler(columns) {
                 if (!Array.isArray(columns)) return;
+                if (this.wwEditorState.isACopy) return;
                 columns.forEach(async ({ type, id }) => {
-                    // TODO: IDEA: if element of this type already exist, clone it?
-                    // TODO: isACopy
                     if (
                         !this.content.columnsElement[id] ||
                         this.content.columnsElement[id].type !== TYPE_OF_ELEMENTS[type]
@@ -87,6 +89,7 @@ export default {
                 });
             },
         },
+        /* wwEditor:end */
     },
     methods: {
         getRowId(item, rowIndex) {

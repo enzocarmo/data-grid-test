@@ -19,9 +19,11 @@
             :edit-button="editButton"
             :valid-edit-button="validEditButton"
             :cancel-button="cancelButton"
+            :delete-button="deleteButton"
             :edit="edit"
             @update:edit="$emit('update:edit', $event)"
             @validate="onValidate"
+            @delete="onDelete"
         ></DataGridActionCell>
     </tr>
 </template>
@@ -41,9 +43,10 @@ export default {
         editButton: { type: Object, required: true },
         validEditButton: { type: Object, required: true },
         cancelButton: { type: Object, required: true },
+        deleteButton: { type: Object, required: true },
         edit: { type: Boolean, default: false },
     },
-    emits: ['update:edit', 'update:row'],
+    emits: ['update:edit', 'update:row', 'delete:row'],
     data() {
         return {
             cellRefs: {},
@@ -59,6 +62,9 @@ export default {
             });
             this.$emit('update:row', { value: item, id: this.id });
             this.$emit('update:edit', false);
+        },
+        onDelete() {
+            this.$emit('delete:row', { id: this.id, value: this.item });
         },
         // TODO: we need higher vue version to have auto ref array
         registerCellRef(id, el) {
