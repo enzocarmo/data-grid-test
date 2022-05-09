@@ -63,6 +63,8 @@ export default {
             name: 'selectedRows',
             defaultValue: [],
             type: 'Array',
+            readonly: true,
+            resettable: true,
         });
 
         return { selectedRows, setSelectedRows };
