@@ -206,5 +206,16 @@ export default {
             },
             hidden: content => !content.alternateBackground,
         },
+        selectable: {
+            label: {
+                en: 'Allow selection',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+        },
+        selectCheckbox: {
+            hidden: true,
+            defaultValue: { isWwObject: true, type: 'ww-checkbox', state: { name: 'Select checkbox' } },
+        },
     },
 };

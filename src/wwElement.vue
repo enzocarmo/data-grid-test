@@ -14,6 +14,7 @@
                 <DataGridRow
                     :id="getRowId(item)"
                     :key="getRowId(item, rowIndex)"
+                    class="grid-row"
                     :item="item"
                     :columns="content.columns"
                     :columns-element="content.columnsElement"
@@ -26,10 +27,13 @@
                     :valid-edit-button="content.validEditButton"
                     :cancel-button="content.cancelButton"
                     :delete-button="content.deleteButton"
-                    class="grid-row"
+                    :select-checkbox="content.selectCheckbox"
+                    :selectable="content.selectable"
+                    :is-selected="getIsSelected(getRowId(item))"
                     @update:edit="setEdit($event, getRowId(item))"
                     @update:row="$emit('trigger-event', { name: 'update:row', event: $event })"
                     @delete:row="$emit('trigger-event', { name: 'delete:row', event: $event })"
+                    @update:is-selected="updateRowSelection($event, item, getRowId(item))"
                     @button-selected="onButtonSelected"
                 />
             </template>
@@ -51,6 +55,15 @@ export default {
         /* wwEditor:end */
     },
     emits: ['update:content', 'update:content:effect', 'trigger-event'],
+    setup(props) {
+        const { value: selectedRows, setValue: setSelectedRows } = wwLib.wwVariable.useComponentVariable({
+            uid: props.uid,
+            name: 'selectedRows',
+            defaultValue: [],
+        });
+
+        return { selectedRows, setSelectedRows };
+    },
     data() {
         return {
             editingId: undefined,
@@ -156,6 +169,21 @@ export default {
         },
         onButtonSelected({ key, id }) {
             // TODO: voir avec Flo
+        },
+        getIsSelected(rowId) {
+            if (!rowId) return false;
+            if (!Array.isArray(this.selectedRows)) return false;
+            return this.selectedRows.some(item => item && item.id === rowId);
+        },
+        updateRowSelection(value, item) {
+            const id = this.getRowId(item);
+            if (!id) return;
+            const isSelected = this.getIsSelected(id);
+            if (value && !isSelected) {
+                this.setSelectedRows([...this.selectedRows, { id, value: item }]);
+            } else if (!value && isSelected) {
+                this.setSelectedRows([...this.selectedRows].filter(selected => selected && selected.id !== id));
+            }
         },
     },
 };

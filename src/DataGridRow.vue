@@ -1,5 +1,8 @@
 <template>
     <tr>
+        <div v-if="selectable" @click="$emit('update:is-selected', !isSelected)">
+            <wwElement v-bind="selectCheckbox"></wwElement>
+        </div>
         <DataGridCell
             v-for="column in columns"
             :key="column.id"
@@ -45,9 +48,12 @@ export default {
         validEditButton: { type: Object, required: true },
         cancelButton: { type: Object, required: true },
         deleteButton: { type: Object, required: true },
+        selectCheckbox: { type: Object, required: true },
         edit: { type: Boolean, default: false },
+        selectable: { type: Boolean, default: false },
+        isSelected: { type: Boolean, default: false },
     },
-    emits: ['update:edit', 'update:row', 'delete:row', 'button-selected'],
+    emits: ['update:edit', 'update:row', 'delete:row', 'button-selected', 'update:is-selected'],
     data() {
         return {
             cellRefs: {},
