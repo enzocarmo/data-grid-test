@@ -60,6 +60,7 @@ export default {
             uid: props.uid,
             name: 'selectedRows',
             defaultValue: [],
+            type: 'Array',
         });
 
         return { selectedRows, setSelectedRows };
