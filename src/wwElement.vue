@@ -1,7 +1,7 @@
 <template>
     <table class="ww-data-grid" :style="cssVars">
         <thead v-if="content.displayHeader">
-            <th v-if="selectable"></th>
+            <th v-if="content.selectable"></th>
             <th v-for="(column, index) in content.columns" :key="index" :style="{ width: column.width || 'auto' }">
                 <wwElement
                     v-if="content.headerTextElements[column.id]"
