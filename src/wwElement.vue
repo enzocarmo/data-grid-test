@@ -19,7 +19,7 @@
                     :columns-element="content.columnsElement"
                     :is-edit-available="content.inlineEditing"
                     :edit="
-                        (forcedInlineEditing && index === 0) ||
+                        (forcedInlineEditing && rowIndex === 0) ||
                         (content.inlineEditing && editingId !== undefined && getRowId(item) === editingId)
                     "
                     :edit-button="content.editButton"
