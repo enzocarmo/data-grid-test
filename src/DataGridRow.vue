@@ -24,6 +24,7 @@
             @update:edit="$emit('update:edit', $event)"
             @validate="onValidate"
             @delete="onDelete"
+            @button-selected="onButtonSelected"
         ></DataGridActionCell>
     </tr>
 </template>
@@ -46,7 +47,7 @@ export default {
         deleteButton: { type: Object, required: true },
         edit: { type: Boolean, default: false },
     },
-    emits: ['update:edit', 'update:row', 'delete:row'],
+    emits: ['update:edit', 'update:row', 'delete:row', 'button-selected'],
     data() {
         return {
             cellRefs: {},
@@ -71,6 +72,9 @@ export default {
             if (el) {
                 this.cellRefs[id] = el;
             }
+        },
+        onButtonSelected(key) {
+            this.$emit('button-selected', { key, id: this.id });
         },
     },
 };

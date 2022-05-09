@@ -9,7 +9,6 @@
             </th>
             <th v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }"></th>
         </thead>
-        <!-- // TODO: add if forced editing  -->
         <wwLayout path="data" tag="tbody" class="body" disable-edit>
             <template #default="{ index: rowIndex, data: item }">
                 <DataGridRow
@@ -19,7 +18,10 @@
                     :columns="content.columns"
                     :columns-element="content.columnsElement"
                     :is-edit-available="content.inlineEditing"
-                    :edit="editingId !== undefined && getRowId(item) === editingId"
+                    :edit="
+                        (forcedInlineEditing && index === 0) ||
+                        (content.inlineEditing && editingId !== undefined && getRowId(item) === editingId)
+                    "
                     :edit-button="content.editButton"
                     :valid-edit-button="content.validEditButton"
                     :cancel-button="content.cancelButton"
@@ -28,6 +30,7 @@
                     @update:edit="setEdit($event, getRowId(item))"
                     @update:row="$emit('trigger-event', { name: 'update:row', event: $event })"
                     @delete:row="$emit('trigger-event', { name: 'delete:row', event: $event })"
+                    @button-selected="onButtonSelected"
                 />
             </template>
         </wwLayout>
@@ -68,6 +71,16 @@ export default {
                     ? this.content.rowBackgroundColorAlt
                     : this.content.rowBackgroundColor,
             };
+        },
+        forcedInlineEditing() {
+            /* wwEditor:start */
+            return (
+                this.isEditing &&
+                this.wwEditorState.sidepanelContent &&
+                this.wwEditorState.sidepanelContent.forcedInlineEditing
+            );
+            /* wwEditor:end */
+            return false;
         },
     },
     watch: {
@@ -140,6 +153,9 @@ export default {
             if (this.isEditing) return;
             /* wwEditor:end */
             this.editingId = value ? id : undefined;
+        },
+        onButtonSelected({ key, id }) {
+            // TODO: voir avec Flo
         },
     },
 };

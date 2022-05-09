@@ -117,6 +117,14 @@ export default {
             type: 'OnOff',
             defaultValue: false,
         },
+        forcedInlineEditing: {
+            label: {
+                en: 'Forced display edit',
+            },
+            type: 'OnOff',
+            editorOnly: true,
+            defaultValue: false,
+        },
         actionColumnWidth: {
             label: 'Actions Width',
             type: 'Length',
