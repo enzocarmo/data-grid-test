@@ -164,5 +164,39 @@ export default {
                 group: 'Headers',
             },
         },
+        displayHeader: {
+            label: {
+                en: 'Show Header',
+            },
+            type: 'OnOff',
+            defaultValue: true,
+            responsive: true,
+        },
+        alternateBackground: {
+            label: {
+                en: 'Alternate background?',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+        },
+        rowBackgroundColor: {
+            label: {
+                en: 'Row Background color',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+        },
+        rowBackgroundColorAlt: {
+            label: {
+                en: 'Row Background color (alt)',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+            hidden: content => !content.alternateBackground,
+        },
     },
 };

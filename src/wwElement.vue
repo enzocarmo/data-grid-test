@@ -1,6 +1,6 @@
 <template>
-    <table class="ww-data-grid">
-        <thead>
+    <table class="ww-data-grid" :style="cssVars">
+        <thead v-if="content.displayHeader">
             <th v-for="(column, index) in content.columns" :key="index" :style="{ width: column.width || 'auto' }">
                 <wwElement
                     v-if="content.headerTextElements[column.id]"
@@ -24,6 +24,7 @@
                     :valid-edit-button="content.validEditButton"
                     :cancel-button="content.cancelButton"
                     :delete-button="content.deleteButton"
+                    class="grid-row"
                     @update:edit="setEdit($event, getRowId(item))"
                     @update:row="$emit('trigger-event', { name: 'update:row', event: $event })"
                     @delete:row="$emit('trigger-event', { name: 'delete:row', event: $event })"
@@ -59,6 +60,14 @@ export default {
             /* wwEditor:end */
             // eslint-disable-next-line no-unreachable
             return false;
+        },
+        cssVars() {
+            return {
+                '--rowBgColor': this.content.rowBackgroundColor,
+                '--rowBgColorAlt': this.content.alternateBackground
+                    ? this.content.rowBackgroundColorAlt
+                    : this.content.rowBackgroundColor,
+            };
         },
     },
     watch: {
@@ -143,6 +152,12 @@ export default {
     border-collapse: collapse;
     .body {
         display: table-row-group;
+        .grid-row:nth-child(2n) {
+            background-color: var(--rowBgColor);
+        }
+        .grid-row:nth-child(2n + 1) {
+            background-color: var(--rowBgColorAlt);
+        }
     }
 }
 </style>
