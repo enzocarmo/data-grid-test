@@ -1,8 +1,13 @@
 <template>
     <table class="ww-data-grid" :style="cssVars">
+        <colgroup>
+            <col v-if="content.selectable" />
+            <col v-for="(column, index) in content.columns" :key="index" :style="{ width: column.width || 'auto' }" />
+            <col v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }" />
+        </colgroup>
         <thead v-if="content.displayHeader">
             <th v-if="content.selectable"></th>
-            <th v-for="(column, index) in content.columns" :key="index" :style="{ width: column.width || 'auto' }">
+            <th v-for="(column, index) in content.columns" :key="index">
                 <wwElement
                     v-if="content.headerTextElements[column.id]"
                     :uid="content.headerTextElements[column.id].uid"
