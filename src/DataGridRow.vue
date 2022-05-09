@@ -1,8 +1,11 @@
 <template>
     <tr>
-        <div v-if="selectable" @click="$emit('update:is-selected', !isSelected)">
-            <wwElement v-bind="selectCheckbox" :states="isSelected ? ['checked'] : []"></wwElement>
-        </div>
+        <wwElement
+            v-if="selectable"
+            v-bind="selectCheckbox"
+            :states="isSelected ? ['checked'] : []"
+            @click="$emit('update:is-selected', !isSelected)"
+        ></wwElement>
         <DataGridCell
             v-for="column in columns"
             :key="column.id"

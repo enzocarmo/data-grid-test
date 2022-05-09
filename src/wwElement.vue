@@ -179,6 +179,9 @@ export default {
             return this.selectedRows.some(item => item && item.id === rowId);
         },
         updateRowSelection(value, item) {
+            /* wwEditor:start */
+            if (this.isEditing) return;
+            /* wwEditor:end */
             const id = this.getRowId(item);
             if (!id) return;
             const isSelected = this.getIsSelected(id);
