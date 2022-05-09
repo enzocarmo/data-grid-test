@@ -49,6 +49,7 @@ export default {
     components: { DataGridRow },
     props: {
         content: { type: Object, required: true },
+        uid: { type: String, required: true },
         wwFrontState: { type: Object, required: true },
         /* wwEditor:start */
         wwEditorState: { type: Object, required: true },
