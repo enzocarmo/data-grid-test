@@ -1,7 +1,7 @@
 <template>
     <table class="ww-data-grid" :style="cssVars">
         <colgroup>
-            <col v-if="content.selectable" />
+            <col v-if="content.selectable" :style="{ width: content.selectColumnWidth || 'auto' }" />
             <col v-for="(column, index) in content.columns" :key="index" :style="{ width: column.width || 'auto' }" />
             <col v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }" />
         </colgroup>
@@ -93,6 +93,10 @@ export default {
                 '--rowBgColorAlt': this.content.alternateBackground
                     ? this.content.rowBackgroundColorAlt
                     : this.content.rowBackgroundColor,
+                '--rowBgColorHover': this.content.rowBackgroundColorHover,
+                '--rowBgColorHoverAlt': this.content.alternateBackground
+                    ? this.content.rowBackgroundColorHoverAlt
+                    : this.content.rowBackgroundColorHover,
             };
         },
         forcedInlineEditing() {
@@ -211,9 +215,15 @@ export default {
         display: table-row-group;
         .grid-row:nth-child(2n) {
             background-color: var(--rowBgColor);
+            &:hover {
+                background-color: var(--rowBgColorHover);
+            }
         }
         .grid-row:nth-child(2n + 1) {
             background-color: var(--rowBgColorAlt);
+            &:hover {
+                background-color: var(--rowBgColorHoverAlt);
+            }
         }
     }
 }

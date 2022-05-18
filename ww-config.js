@@ -117,6 +117,11 @@ export default {
             type: 'OnOff',
             defaultValue: false,
         },
+        actionColumnWidth: {
+            label: 'Actions Width',
+            type: 'Length',
+            hidden: content => !content.inlineEditing,
+        },
         forcedInlineEditing: {
             label: {
                 en: 'Forced display edit',
@@ -124,11 +129,6 @@ export default {
             type: 'OnOff',
             editorOnly: true,
             defaultValue: false,
-        },
-        actionColumnWidth: {
-            label: 'Actions Width',
-            type: 'Length',
-            hidden: content => !content.inlineEditing,
         },
         editButton: {
             hidden: true,
@@ -206,6 +206,25 @@ export default {
             },
             hidden: content => !content.alternateBackground,
         },
+        rowBackgroundColorHover: {
+            label: {
+                en: 'Row Background color (hover)',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+        },
+        rowBackgroundColorHoverAlt: {
+            label: {
+                en: 'Row Background color (hover-alt)',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+            hidden: content => !content.alternateBackground,
+        },
         selectable: {
             label: {
                 en: 'Allow selection',
@@ -216,6 +235,11 @@ export default {
         selectCheckbox: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-checkbox', state: { name: 'Select checkbox' } },
+        },
+        selectColumnWidth: {
+            label: 'Select Width',
+            type: 'Length',
+            hidden: content => !content.selectable,
         },
     },
 };
