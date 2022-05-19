@@ -10,7 +10,7 @@
         </td>
         <template v-for="column in columns" :key="column.id">
             <DataGridCell
-                v-if="column.readable"
+                v-if="column.display"
                 :ref="el => registerCellRef(column.id, el)"
                 :column="column"
                 :item="item"
