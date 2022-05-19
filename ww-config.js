@@ -215,16 +215,6 @@ export default {
                 nullable: true,
             },
         },
-        rowBackgroundColorHoverAlt: {
-            label: {
-                en: 'Row Background color (hover-alt)',
-            },
-            type: 'Color',
-            options: {
-                nullable: true,
-            },
-            hidden: content => !content.alternateBackground,
-        },
         selectable: {
             label: {
                 en: 'Allow selection',

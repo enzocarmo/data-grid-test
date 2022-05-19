@@ -214,13 +214,13 @@ export default {
         .grid-row:nth-child(2n) {
             background-color: var(--rowBgColor);
             &:hover {
-                background-color: var(--rowBgColorHover);
+                background-color: var(--rowBgColorHover, var(--rowBgColor));
             }
         }
         .grid-row:nth-child(2n + 1) {
             background-color: var(--rowBgColorAlt);
             &:hover {
-                background-color: var(--rowBgColorHoverAlt);
+                background-color: var(--rowBgColorHover, var(--rowBgColorAlt));
             }
         }
         tr {
