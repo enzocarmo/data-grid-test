@@ -98,7 +98,9 @@ export default {
                 '--rowBgColorAlt': this.content.alternateBackground
                     ? this.content.rowBackgroundColorAlt
                     : this.content.rowBackgroundColor,
-                '--rowBgColorHover': this.content.rowBackgroundColorHover,
+                ...(this.content.rowBackgroundColorHover
+                    ? { '--rowBgColorHover': this.content.rowBackgroundColorHover }
+                    : {}),
                 '--verticalAlignement': this.content.verticalAlignement,
             };
         },
