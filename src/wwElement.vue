@@ -209,6 +209,7 @@ export default {
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 0;
     .body {
         display: table-row-group;
         .grid-row:nth-child(2n) {
@@ -225,6 +226,10 @@ export default {
         }
         tr {
             vertical-align: var(--verticalAlignement);
+        }
+        tr,
+        th {
+            padding: 0;
         }
     }
 }
