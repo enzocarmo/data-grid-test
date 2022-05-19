@@ -8,16 +8,17 @@
                 @click="$emit('update:is-selected', !isSelected)"
             ></wwElement>
         </td>
-        <DataGridCell
-            v-for="column in columns"
-            :key="column.id"
-            :ref="el => registerCellRef(column.id, el)"
-            :column="column"
-            :item="item"
-            :edit="edit"
-            :columns-element="columnsElement"
-        >
-        </DataGridCell>
+        <template v-for="column in columns" :key="column.id">
+            <DataGridCell
+                v-if="column.readable"
+                :ref="el => registerCellRef(column.id, el)"
+                :column="column"
+                :item="item"
+                :edit="column.editable && edit"
+                :columns-element="columnsElement"
+            >
+            </DataGridCell>
+        </template>
         <span v-if="!columns || !columns.length" class="message ww-typo-sub-text flex items-center">
             Please define a column
         </span>

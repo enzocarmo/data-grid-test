@@ -2,17 +2,22 @@
     <table class="ww-data-grid" :style="cssVars">
         <colgroup>
             <col v-if="content.selectable" :style="{ width: content.selectColumnWidth || 'auto' }" />
-            <col v-for="(column, index) in content.columns" :key="index" :style="{ width: column.width || 'auto' }" />
+            <template v-for="(column, index) in content.columns" :key="index">
+                <col v-if="column.readable" :style="{ width: column.width || 'auto' }" />
+            </template>
+
             <col v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }" />
         </colgroup>
         <thead v-if="content.displayHeader">
             <th v-if="content.selectable"></th>
-            <th v-for="(column, index) in content.columns" :key="index">
-                <wwElement
-                    v-if="content.headerTextElements[column.id]"
-                    :uid="content.headerTextElements[column.id].uid"
-                ></wwElement>
-            </th>
+            <template v-for="(column, index) in content.columns" :key="index">
+                <th v-if="column.readable">
+                    <wwElement
+                        v-if="content.headerTextElements[column.id]"
+                        :uid="content.headerTextElements[column.id].uid"
+                    ></wwElement>
+                </th>
+            </template>
             <th v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }"></th>
         </thead>
         <wwLayout path="data" tag="tbody" class="body" disable-edit>

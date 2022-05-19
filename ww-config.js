@@ -97,6 +97,19 @@ export default {
                                 label: { en: 'Width' },
                                 type: 'Length',
                             },
+                            display: {
+                                label: { en: 'Display' },
+                                type: 'OnOff',
+                                bindable: true,
+                                defaultValue: true,
+                            },
+                            editable: {
+                                label: { en: 'Editable' },
+                                type: 'OnOff',
+                                bindable: true,
+                                defaultValue: true,
+                                hidden: content => !content.inlineEditing,
+                            },
                             id: {
                                 hidden: true,
                             },
