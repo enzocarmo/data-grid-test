@@ -2,7 +2,7 @@
     <td class="ww-data-grid-cell">
         <wwElement
             v-if="element && element.uid"
-            :ww-props="{ value: displayedValue, readonly: !edit }"
+            :ww-props="{ value: internalValue, readonly: !edit }"
             :uid="element.uid"
             @element-event="onElementEvent"
         ></wwElement>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, toRef } from 'vue';
+import { ref, computed, watch } from 'vue';
 export default {
     expose: ['internalValue', 'column'],
     props: {
@@ -28,19 +28,14 @@ export default {
             return _.get(props.item, props.column.path);
         });
         const internalValue = ref(value.value);
-        watch(toRef(props, 'edit'), (isEditing, wasEditing) => {
-            if (isEditing && !wasEditing) {
-                internalValue.value = value.value;
-            }
+        watch(value, value => {
+            internalValue.value = value;
         });
 
         return {
             setValue(value) {
                 internalValue.value = value;
             },
-            displayedValue: computed(() => {
-                return props.edit ? internalValue.value : value.value;
-            }),
             internalValue,
         };
     },

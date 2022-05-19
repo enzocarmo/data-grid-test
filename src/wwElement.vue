@@ -214,6 +214,7 @@ export default {
         display: table-row-group;
         .grid-row:nth-child(2n) {
             background-color: var(--rowBgColor);
+            transition: background-color 0.3s ease;
             &:hover {
                 background-color: var(--rowBgColorHover, var(--rowBgColor));
             }
