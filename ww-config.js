@@ -241,5 +241,17 @@ export default {
             type: 'Length',
             hidden: content => !content.selectable,
         },
+        verticalAlignement: {
+            label: { en: 'Vertical Alignement' },
+            type: 'TextSelect',
+            options: {
+                options: [
+                    { value: 'top', label: 'Top' },
+                    { value: 'middle', label: 'Middle' },
+                    { value: 'bottom', label: 'Bottom' },
+                ],
+            },
+            default: 'top',
+        },
     },
 };

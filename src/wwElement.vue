@@ -94,9 +94,7 @@ export default {
                     ? this.content.rowBackgroundColorAlt
                     : this.content.rowBackgroundColor,
                 '--rowBgColorHover': this.content.rowBackgroundColorHover,
-                '--rowBgColorHoverAlt': this.content.alternateBackground
-                    ? this.content.rowBackgroundColorHoverAlt
-                    : this.content.rowBackgroundColorHover,
+                '--verticalAlignement': this.content.verticalAlignement,
             };
         },
         forcedInlineEditing() {
@@ -224,6 +222,9 @@ export default {
             &:hover {
                 background-color: var(--rowBgColorHoverAlt);
             }
+        }
+        tr {
+            vertical-align: var(--verticalAlignement);
         }
     }
 }
