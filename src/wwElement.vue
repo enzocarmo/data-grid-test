@@ -3,7 +3,7 @@
         <colgroup>
             <col v-if="content.selectable" :style="{ width: content.selectColumnWidth || 'auto' }" />
             <template v-for="(column, index) in content.columns" :key="index">
-                <col v-if="column.readable" :style="{ width: column.width || 'auto' }" />
+                <col v-if="column.display" :style="{ width: column.width || 'auto' }" />
             </template>
 
             <col v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }" />
@@ -11,7 +11,7 @@
         <thead v-if="content.displayHeader">
             <th v-if="content.selectable"></th>
             <template v-for="(column, index) in content.columns" :key="index">
-                <th v-if="column.readable">
+                <th v-if="column.display">
                     <wwElement
                         v-if="content.headerTextElements[column.id]"
                         :uid="content.headerTextElements[column.id].uid"
