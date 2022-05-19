@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, toRef } from 'vue';
 export default {
     expose: ['internalValue', 'column'],
     props: {
@@ -28,8 +28,14 @@ export default {
             return _.get(props.item, props.column.path);
         });
         const internalValue = ref(value.value);
+        const previousValue = ref(value.value);
         watch(value, value => {
             internalValue.value = value;
+        });
+        watch(toRef(props, 'edit'), (isEditing, wasEditing) => {
+            if (!wasEditing && isEditing) {
+                previousValue.value = value.value;
+            }
         });
 
         return {
@@ -37,6 +43,8 @@ export default {
                 internalValue.value = value;
             },
             internalValue,
+            value,
+            previousValue,
         };
     },
     computed: {
@@ -54,6 +62,9 @@ export default {
             if ($event.type === 'update:value') {
                 this.setValue($event.value);
             }
+        },
+        resetValue() {
+            this.internalValue = this.previousValue;
         },
     },
 };

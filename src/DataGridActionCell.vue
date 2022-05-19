@@ -35,7 +35,7 @@
             </template>
             <template v-else>
                 <wwElement v-bind="validEditButton" @click="$emit('validate')"></wwElement>
-                <wwElement v-bind="cancelButton" @click="$emit('update:edit', false)"></wwElement>
+                <wwElement v-bind="cancelButton" @click="$emit('cancel', false)"></wwElement>
             </template>
             <!-- wwFront:end -->
         </div>
@@ -52,7 +52,7 @@ export default {
         deleteButton: { type: Object, required: true },
         edit: { type: Boolean, default: false },
     },
-    emits: ['update:edit', 'validate', 'delete', 'button-selected'],
+    emits: ['update:edit', 'validate', 'delete', 'button-selected', 'cancel'],
     methods: {
         onSelectionChanged(key, value) {
             if (value) {

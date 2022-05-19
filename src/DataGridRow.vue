@@ -32,6 +32,7 @@
             @update:edit="$emit('update:edit', $event)"
             @validate="onValidate"
             @delete="onDelete"
+            @cancel="onCancel"
             @button-selected="onButtonSelected"
         ></DataGridActionCell>
     </tr>
@@ -77,6 +78,12 @@ export default {
         },
         onDelete() {
             this.$emit('delete:row', { id: this.id, value: this.item });
+        },
+        onCancel() {
+            Object.values(this.cellRefs).forEach(row => {
+                row.resetValue();
+            });
+            this.$emit('update:edit', false);
         },
         // TODO: we need higher vue version to have auto ref array
         registerCellRef(id, el) {
