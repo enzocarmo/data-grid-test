@@ -178,12 +178,26 @@ export default {
                 group: 'Cells',
             },
         },
+        headerTextSelectable: {
+            hidden: true,
+            navigator: {
+                group: 'Headers',
+            },
+            defaultValue: { isWwObject: true, type: 'ww-text', state: { name: 'Header - Selection' } },
+        },
         headerTextElements: {
             hidden: true,
             defaultValue: {},
             navigator: {
                 group: 'Headers',
             },
+        },
+        headerTextActions: {
+            hidden: true,
+            navigator: {
+                group: 'Headers',
+            },
+            defaultValue: { isWwObject: true, type: 'ww-text', state: { name: 'Header - Actions' } },
         },
         displayHeader: {
             label: {

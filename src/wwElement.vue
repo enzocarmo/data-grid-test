@@ -9,7 +9,7 @@
             <col v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }" />
         </colgroup>
         <thead v-if="content.displayHeader">
-            <th v-if="content.selectable"></th>
+            <th v-if="content.selectable"><wwElement v-bind="content.headerTextSelectable" /></th>
             <template v-for="(column, index) in content.columns" :key="index">
                 <th v-if="column.display">
                     <wwElement
@@ -18,7 +18,9 @@
                     ></wwElement>
                 </th>
             </template>
-            <th v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }"></th>
+            <th v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }">
+                <wwElement v-bind="content.headerTextActions" />
+            </th>
         </thead>
         <wwLayout path="data" tag="tbody" class="body" disable-edit>
             <template #default="{ index: rowIndex, data: item }">
@@ -223,14 +225,14 @@ export default {
     }
     .body {
         display: table-row-group;
-        .grid-row:nth-child(2n) {
+        .grid-row:nth-child(2n + 1) {
             background-color: var(--rowBgColor);
             transition: background-color 0.3s ease;
             &:hover {
                 background-color: var(--rowBgColorHover, var(--rowBgColor));
             }
         }
-        .grid-row:nth-child(2n + 1) {
+        .grid-row:nth-child(2n) {
             background-color: var(--rowBgColorAlt);
             &:hover {
                 background-color: var(--rowBgColorHover, var(--rowBgColorAlt));
