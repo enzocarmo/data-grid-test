@@ -9,14 +9,14 @@
             <!-- wwFront:end -->
             <template v-else>
                 <wwElement
-                    :class="{ hidden: edit }"
+                    :class="{ 'hide-container': edit }"
                     v-bind="editContainer"
                     :ww-props="{ isFixed: true }"
                     @element-event="onEditContainerEvent"
                     @update:is-selected="onIsEditContainerSelected"
                 ></wwElement>
                 <wwElement
-                    :class="{ hidden: !edit }"
+                    :class="{ 'hide-container': !edit }"
                     v-bind="editingContainer"
                     :ww-props="{ isFixed: true }"
                     @element-event="onEditingContainerEvent"
@@ -38,6 +38,9 @@ export default {
     emits: ['update:edit', 'validate', 'delete', 'cancel'],
     methods: {
         onEditContainerEvent(event) {
+            /* wwEditor:start */
+            if (this.isEditing) return;
+            /* wwEditor:end */
             if (event.type === 'click') {
                 if (event.index === 0) {
                     // Edit button
@@ -48,6 +51,9 @@ export default {
             }
         },
         onEditingContainerEvent(event) {
+            /* wwEditor:start */
+            if (this.isEditing) return;
+            /* wwEditor:end */
             if (event.type === 'click') {
                 if (event.index === 0) {
                     this.$emit('validate');
@@ -70,6 +76,11 @@ export default {
 };
 </script>
 
+<style>
+.ww-data-grid-action-cell > .hide-container {
+    display: none !important;
+}
+</style>
 <style lang="scss" scoped>
 /* wwEditor:start */
 .message {
@@ -81,7 +92,4 @@ export default {
     border: 1px solid var(--ww-color-theme-dark-100);
 }
 /* wwEditor:end */
-.hidden {
-    display: none !important;
-}
 </style>

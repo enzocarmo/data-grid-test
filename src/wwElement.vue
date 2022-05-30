@@ -180,9 +180,6 @@ export default {
         },
         /* wwEditor:end */
         setEdit(value, id) {
-            /* wwEditor:start */
-            if (this.isEditing) return;
-            /* wwEditor:end */
             this.editingId = value ? id : undefined;
         },
         getIsSelected(rowId) {
