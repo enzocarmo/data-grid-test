@@ -7,20 +7,22 @@
             <!-- wwFront:start -->
             <template v-if="false"></template>
             <!-- wwFront:end -->
-            <wwElement
-                v-else-if="!edit"
-                v-bind="editContainer"
-                :ww-props="{ isFixed: true }"
-                @element-event="onEditContainerEvent"
-                @update:is-selected="onIsEditContainerSelected"
-            ></wwElement>
-            <wwElement
-                v-else
-                v-bind="editingContainer"
-                :ww-props="{ isFixed: true }"
-                @element-event="onEditingContainerEvent"
-                @update:is-selected="onIsEditingContainerSelected"
-            ></wwElement>
+            <template v-else>
+                <wwElement
+                    :class="{ hidden: edit }"
+                    v-bind="editContainer"
+                    :ww-props="{ isFixed: true }"
+                    @element-event="onEditContainerEvent"
+                    @update:is-selected="onIsEditContainerSelected"
+                ></wwElement>
+                <wwElement
+                    :class="{ hidden: !edit }"
+                    v-bind="editingContainer"
+                    :ww-props="{ isFixed: true }"
+                    @element-event="onEditingContainerEvent"
+                    @update:is-selected="onIsEditingContainerSelected"
+                ></wwElement>
+            </template>
         </div>
     </td>
 </template>
@@ -79,4 +81,7 @@ export default {
     border: 1px solid var(--ww-color-theme-dark-100);
 }
 /* wwEditor:end */
+.hidden {
+    display: none !important;
+}
 </style>
