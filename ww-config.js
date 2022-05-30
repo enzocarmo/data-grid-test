@@ -121,6 +121,9 @@ export default {
                 remove: 'removeColumn',
                 movable: true,
                 expandable: true,
+                getItemLabel(_, index) {
+                    return `Column ${index + 1}`;
+                },
             },
             defaultValue: [],
         },
