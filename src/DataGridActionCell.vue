@@ -3,41 +3,12 @@
         <div class="ww-data-grid-action-cell flex items-center">
             <!-- wwEditor:start -->
             <div v-if="id === undefined" class="message ww-typo-sub-text">Please provide an id path</div>
-            <template v-else-if="!edit">
-                <wwElement
-                    v-bind="editButton"
-                    @click="$emit('update:edit', !edit)"
-                    @update:is-selected="onSelectionChanged('edit', $event)"
-                ></wwElement>
-                <wwElement
-                    v-bind="deleteButton"
-                    @click="$emit('delete')"
-                    @update:is-selected="onSelectionChanged('delete', $event)"
-                ></wwElement>
-            </template>
-            <template v-else>
-                <wwElement
-                    v-bind="validEditButton"
-                    @click="$emit('validate')"
-                    @update:is-selected="onSelectionChanged('valid', $event)"
-                ></wwElement>
-                <wwElement
-                    v-bind="cancelButton"
-                    @click="$emit('update:edit', false)"
-                    @update:is-selected="onSelectionChanged('cancel', $event)"
-                ></wwElement>
-            </template>
             <!-- wwEditor:end -->
             <!-- wwFront:start -->
-            <template v-if="!edit">
-                <wwElement v-bind="editButton" @click="$emit('update:edit', !edit)"></wwElement>
-                <wwElement v-bind="deleteButton" @click="$emit('delete')"></wwElement>
-            </template>
-            <template v-else>
-                <wwElement v-bind="validEditButton" @click="$emit('validate')"></wwElement>
-                <wwElement v-bind="cancelButton" @click="$emit('cancel', false)"></wwElement>
-            </template>
+            <template v-if="false"></template>
             <!-- wwFront:end -->
+            <wwElement v-else-if="!edit" v-bind="editContainer" @element-event="onEditContainerEvent"></wwElement>
+            <wwElement v-else v-bind="editingContainer" @element-event="onEditingContainerEvent"></wwElement>
         </div>
     </td>
 </template>
@@ -46,17 +17,29 @@
 export default {
     props: {
         id: { type: undefined, required: true },
-        editButton: { type: Object, required: true },
-        validEditButton: { type: Object, required: true },
-        cancelButton: { type: Object, required: true },
-        deleteButton: { type: Object, required: true },
+        editContainer: { type: Object, required: true },
+        editingContainer: { type: Object, required: true },
         edit: { type: Boolean, default: false },
     },
-    emits: ['update:edit', 'validate', 'delete', 'button-selected', 'cancel'],
+    emits: ['update:edit', 'validate', 'delete', 'cancel'],
     methods: {
-        onSelectionChanged(key, value) {
-            if (value) {
-                this.$emit('button-selected', key);
+        onEditContainerEvent(event) {
+            if (event.type === 'click') {
+                if (event.index === 0) {
+                    // Edit button
+                    this.$emit('update:edit', !this.edit);
+                } else {
+                    this.$emit('delete');
+                }
+            }
+        },
+        onEditingContainerEvent(event) {
+            if (event.type === 'click') {
+                if (event.index === 0) {
+                    this.$emit('validate');
+                } else {
+                    this.$emit('update:edit', false);
+                }
             }
         },
     },

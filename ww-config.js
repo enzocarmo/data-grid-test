@@ -143,32 +143,52 @@ export default {
             editorOnly: true,
             defaultValue: false,
         },
-        editButton: {
+        editContainer: {
+            group: 'Edit Buttons',
             hidden: true,
-            defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Edit' } } },
-            navigator: {
-                group: 'Edit Buttons',
+            defaultValue: {
+                isWwObject: true,
+                type: 'ww-flexbox',
+                content: {
+                    children: [
+                        {
+                            isWwObject: true,
+                            type: 'ww-button',
+                            content: { text: { en: 'Edit' } },
+                            state: { name: 'Edit button' },
+                        },
+                        {
+                            isWwObject: true,
+                            type: 'ww-button',
+                            content: { text: { en: 'Delete' } },
+                            state: { name: 'Delete button' },
+                        },
+                    ],
+                },
             },
         },
-        deleteButton: {
+        editingContainer: {
+            group: 'Edit Buttons',
             hidden: true,
-            defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Delete' } } },
-            navigator: {
-                group: 'Edit Buttons',
-            },
-        },
-        cancelButton: {
-            hidden: true,
-            defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Cancel' } } },
-            navigator: {
-                group: 'Edit Buttons',
-            },
-        },
-        validEditButton: {
-            hidden: true,
-            defaultValue: { isWwObject: true, type: 'ww-button', content: { text: { en: 'Validate' } } },
-            navigator: {
-                group: 'Edit Buttons',
+            defaultValue: {
+                isWwObject: true,
+                type: 'ww-flexbox',
+                content: {
+                    children: [
+                        {
+                            isWwObject: true,
+                            type: 'ww-button',
+                            content: { text: { en: 'Cancel' } },
+                            state: { name: 'Cancel button' },
+                        },
+                        {
+                            isWwObject: true,
+                            type: 'ww-button',
+                            content: { text: { en: 'Validate' } },
+                            state: { name: 'Validate button' },
+                        },
+                    ],
+                },
             },
         },
         columnsElement: {

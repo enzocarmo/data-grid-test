@@ -36,10 +36,8 @@
                         (forcedInlineEditing && rowIndex === 0) ||
                         (content.inlineEditing && editingId !== undefined && getRowId(item) === editingId)
                     "
-                    :edit-button="content.editButton"
-                    :valid-edit-button="content.validEditButton"
-                    :cancel-button="content.cancelButton"
-                    :delete-button="content.deleteButton"
+                    :edit-container="content.editContainer"
+                    :editing-container="content.editingContainer"
                     :select-checkbox="content.selectCheckbox"
                     :selectable="content.selectable"
                     :is-selected="getIsSelected(getRowId(item))"
@@ -47,7 +45,6 @@
                     @update:row="$emit('trigger-event', { name: 'update:row', event: $event })"
                     @delete:row="$emit('trigger-event', { name: 'delete:row', event: $event })"
                     @update:is-selected="updateRowSelection($event, item, getRowId(item))"
-                    @button-selected="onButtonSelected"
                 />
             </template>
         </wwLayout>
@@ -187,9 +184,6 @@ export default {
             if (this.isEditing) return;
             /* wwEditor:end */
             this.editingId = value ? id : undefined;
-        },
-        onButtonSelected({ key, id }) {
-            // TODO: voir avec Flo
         },
         getIsSelected(rowId) {
             if (!rowId) return false;

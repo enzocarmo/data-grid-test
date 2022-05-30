@@ -25,16 +25,13 @@
         <DataGridActionCell
             v-if="isEditAvailable"
             :id="id"
-            :edit-button="editButton"
-            :valid-edit-button="validEditButton"
-            :cancel-button="cancelButton"
-            :delete-button="deleteButton"
+            :edit-container="editContainer"
+            :editing-container="editingContainer"
             :edit="edit"
             @update:edit="$emit('update:edit', $event)"
             @validate="onValidate"
             @delete="onDelete"
             @cancel="onCancel"
-            @button-selected="onButtonSelected"
         ></DataGridActionCell>
     </tr>
 </template>
@@ -51,16 +48,14 @@ export default {
         columns: { type: Array, required: true },
         columnsElement: { type: Object, required: true },
         isEditAvailable: { type: Boolean, default: false },
-        editButton: { type: Object, required: true },
-        validEditButton: { type: Object, required: true },
-        cancelButton: { type: Object, required: true },
-        deleteButton: { type: Object, required: true },
+        editContainer: { type: Object, required: true },
+        editingContainer: { type: Object, required: true },
         selectCheckbox: { type: Object, required: true },
         edit: { type: Boolean, default: false },
         selectable: { type: Boolean, default: false },
         isSelected: { type: Boolean, default: false },
     },
-    emits: ['update:edit', 'update:row', 'delete:row', 'button-selected', 'update:is-selected'],
+    emits: ['update:edit', 'update:row', 'delete:row', 'update:is-selected'],
     data() {
         return {
             cellRefs: {},
@@ -91,9 +86,6 @@ export default {
             if (el) {
                 this.cellRefs[id] = el;
             }
-        },
-        onButtonSelected(key) {
-            this.$emit('button-selected', { key, id: this.id });
         },
     },
 };
