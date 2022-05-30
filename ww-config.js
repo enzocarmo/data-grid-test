@@ -120,6 +120,7 @@ export default {
                 add: 'addColumn',
                 remove: 'removeColumn',
                 movable: true,
+                expandable: true,
             },
             defaultValue: [],
         },
