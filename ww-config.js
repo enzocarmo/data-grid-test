@@ -144,7 +144,9 @@ export default {
             defaultValue: false,
         },
         editContainer: {
-            group: 'Edit Buttons',
+            navigator: {
+                group: 'Edit Buttons',
+            },
             hidden: true,
             defaultValue: {
                 isWwObject: true,
@@ -166,7 +168,9 @@ export default {
             },
         },
         editingContainer: {
-            group: 'Edit Buttons',
+            navigator: {
+                group: 'Edit Buttons',
+            },
             hidden: true,
             defaultValue: {
                 isWwObject: true,
