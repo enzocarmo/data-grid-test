@@ -1,6 +1,6 @@
 <template>
     <td>
-        <div class="ww-data-grid-action-cell flex items-center">
+        <div class="ww-data-grid-action-cell">
             <!-- wwEditor:start -->
             <div v-if="id === undefined" class="message ww-typo-sub-text">Please provide an id path</div>
             <!-- wwEditor:end -->
