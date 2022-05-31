@@ -14,6 +14,7 @@
                     :ww-props="{ isFixed: true }"
                     @element-event="onEditContainerEvent"
                     @update:is-selected="onIsEditContainerSelected"
+                    @update:child-selected="onIsEditContainerSelected"
                 ></wwElement>
                 <wwElement
                     :class="{ 'hide-container': !edit }"
@@ -21,6 +22,7 @@
                     :ww-props="{ isFixed: true }"
                     @element-event="onEditingContainerEvent"
                     @update:is-selected="onIsEditingContainerSelected"
+                    @update:child-selected="onIsEditingContainerSelected"
                 ></wwElement>
             </template>
         </div>
