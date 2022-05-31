@@ -146,10 +146,12 @@ export default {
             type: 'OnOff',
             editorOnly: true,
             defaultValue: false,
+            hidden: content => !content.inlineEditing,
         },
         editContainer: {
             navigator: {
                 group: 'Edit Buttons',
+                hidden: content => !content.inlineEditing,
             },
             hidden: true,
             defaultValue: {
@@ -174,6 +176,7 @@ export default {
         editingContainer: {
             navigator: {
                 group: 'Edit Buttons',
+                hidden: content => !content.inlineEditing,
             },
             hidden: true,
             defaultValue: {
@@ -206,6 +209,7 @@ export default {
             hidden: true,
             navigator: {
                 group: 'Headers',
+                hidden: content => !content.displayHeader || !content.selectable,
             },
             defaultValue: { isWwObject: true, type: 'ww-text', state: { name: 'Header - Selection' } },
         },
@@ -214,12 +218,14 @@ export default {
             defaultValue: {},
             navigator: {
                 group: 'Headers',
+                hidden: content => !content.displayHeader,
             },
         },
         headerTextActions: {
             hidden: true,
             navigator: {
                 group: 'Headers',
+                hidden: content => !content.displayHeader || !content.inlineEditing,
             },
             defaultValue: { isWwObject: true, type: 'ww-text', state: { name: 'Header - Actions' } },
         },
@@ -276,6 +282,9 @@ export default {
         selectCheckbox: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-checkbox', state: { name: 'Select checkbox' } },
+            navigator: {
+                hidden: content => !content.displayHeader || !content.selectable,
+            },
         },
         selectColumnWidth: {
             label: 'Select Width',
