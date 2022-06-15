@@ -1,8 +1,7 @@
 <template>
     <tr>
-        <td>
+        <td v-if="selectable">
             <wwElement
-                v-if="selectable"
                 v-bind="selectCheckbox"
                 :states="isSelected ? ['checked'] : []"
                 @click="$emit('update:is-selected', !isSelected)"
