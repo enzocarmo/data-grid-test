@@ -74,13 +74,6 @@ export default {
                     type: 'Object',
                     options: {
                         item: {
-                            path: {
-                                label: { en: 'Path' },
-                                type: 'ObjectPropertyPath',
-                                options: content => ({
-                                    object: getDataObject(content),
-                                }),
-                            },
                             type: {
                                 label: { en: 'Type' },
                                 type: 'TextSelect',
@@ -88,10 +81,16 @@ export default {
                                     options: [
                                         { value: 'text', label: 'Text' },
                                         { value: 'select', label: 'Select' },
-                                        // { value: 'checkbox', label: 'Checkbox' },
                                         { value: 'custom', label: 'Custom' },
                                     ],
                                 },
+                            },
+                            path: {
+                                label: { en: 'Path' },
+                                type: 'ObjectPropertyPath',
+                                options: content => ({
+                                    object: getDataObject(content),
+                                }),
                             },
                             width: {
                                 label: { en: 'Width' },
