@@ -152,7 +152,7 @@ export default {
         async addColumn() {
             const columns = [...this.content.columns];
             const id = wwLib.wwUtils.getUid();
-            columns.push({ id, display: true, editable: true });
+            columns.push({ id, type: 'text', display: true, editable: true });
             const headerTextElements = { ...this.content.headerTextElements };
             headerTextElements[id] = await wwLib.createElement(
                 'ww-text',
