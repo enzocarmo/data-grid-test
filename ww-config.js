@@ -271,6 +271,13 @@ export default {
                 nullable: true,
             },
         },
+        hasStickyHeader: {
+            label: {
+                en: 'Sticky Header?',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+        },
         selectable: {
             label: {
                 en: 'Allow selection',
