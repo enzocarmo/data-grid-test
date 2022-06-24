@@ -225,7 +225,8 @@ export default {
             z-index: 1;
         }
     }
-    thead {
+    thead,
+    th {
         background-color: var(--headerBgColor);
     }
     .body {
