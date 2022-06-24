@@ -243,6 +243,15 @@ export default {
             type: 'OnOff',
             defaultValue: false,
         },
+        headerBackgroundColor: {
+            label: {
+                en: 'Header Background color',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+        },
         rowBackgroundColor: {
             label: {
                 en: 'Row Background color',

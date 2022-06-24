@@ -93,6 +93,7 @@ export default {
         },
         cssVars() {
             return {
+                '--headerBgColor': this.content.headerBackgroundColor,
                 '--rowBgColor': this.content.rowBackgroundColor,
                 '--rowBgColorAlt': this.content.alternateBackground
                     ? this.content.rowBackgroundColorAlt
@@ -223,6 +224,9 @@ export default {
             top: 0;
             z-index: 1;
         }
+    }
+    thead {
+        background-color: var(--headerBgColor);
     }
     .body {
         display: table-row-group;
