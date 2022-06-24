@@ -217,9 +217,11 @@ export default {
     }
 
     &.sticky {
+        isolation: isolate;
         th {
             position: sticky;
             top: 0;
+            z-index: 1;
         }
     }
     .body {
