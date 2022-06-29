@@ -251,6 +251,7 @@ export default {
             options: {
                 nullable: true,
             },
+            hidden: content => !content.displayHeader,
         },
         rowBackgroundColor: {
             label: {
@@ -286,6 +287,119 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            hidden: content => !content.displayHeader,
+        },
+        isTheadBorderSplit: {
+            label: {
+                en: 'Split header border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
+        theadBorders: {
+            label: {
+                en: 'Header borders',
+            },
+            type: 'Borders',
+            hidden: content => content.isTheadBorderSplit || !content.displayHeader,
+        },
+        theaderBordersVertical: {
+            label: {
+                en: 'Header borders (vertical)',
+            },
+            type: 'Borders',
+            hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
+        },
+        theaderBordersHorizontal: {
+            label: {
+                en: 'Header borders (horizontal)',
+            },
+            type: 'Borders',
+            hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
+        },
+        isThBorderSplit: {
+            label: {
+                en: 'Split cell header border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
+        thBorders: {
+            label: {
+                en: 'Header cell borders',
+            },
+            type: 'Borders',
+            hidden: content => content.isThBorderSplit || !content.displayHeader,
+        },
+        thBordersVertical: {
+            label: {
+                en: 'Header cell borders (vertical)',
+            },
+            type: 'Borders',
+            hidden: content => !content.isThBorderSplit || !content.displayHeader,
+        },
+        thBordersHorizontal: {
+            label: {
+                en: 'Header cell borders (horizontal)',
+            },
+            type: 'Borders',
+            hidden: content => !content.isThBorderSplit || !content.displayHeader,
+        },
+        isTrBorderSplit: {
+            label: {
+                en: 'Split row border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
+        trBorders: {
+            label: {
+                en: 'Row borders',
+            },
+            type: 'Borders',
+            hidden: content => content.isTrBorderSplit || !content.displayHeader,
+        },
+        trBordersVertical: {
+            label: {
+                en: 'Row borders (vertical)',
+            },
+            type: 'Borders',
+            hidden: content => !content.isTrBorderSplit || !content.displayHeader,
+        },
+        trBordersHorizontal: {
+            label: {
+                en: 'Row borders (horizontal)',
+            },
+            type: 'Borders',
+            hidden: content => !content.isTrBorderSplit || !content.displayHeader,
+        },
+        isTdBorderSplit: {
+            label: {
+                en: 'Split cell border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
+        tdBorders: {
+            label: {
+                en: 'Cell borders',
+            },
+            type: 'Borders',
+            hidden: content => content.isTdBorderSplit || !content.displayHeader,
+        },
+        tdBordersVertical: {
+            label: {
+                en: 'Cell borders (vertical)',
+            },
+            type: 'Borders',
+            hidden: content => !content.isTdBorderSplit || !content.displayHeader,
+        },
+        tdBordersHorizontal: {
+            label: {
+                en: 'Cell borders (horizontal)',
+            },
+            type: 'Borders',
+            hidden: content => !content.isTdBorderSplit || !content.displayHeader,
         },
         selectable: {
             label: {

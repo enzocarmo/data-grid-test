@@ -102,6 +102,30 @@ export default {
                     ? { '--rowBgColorHover': this.content.rowBackgroundColorHover }
                     : {}),
                 '--verticalAlignement': this.content.verticalAlignement,
+                '--theadBordersVertical': this.content.isTheadBorderSplit
+                    ? this.content.theaderBordersVertical
+                    : this.content.theaderBorders,
+                '--theadBordersHorizontal': this.content.isTheadBorderSplit
+                    ? this.content.theaderBordersHorizontal
+                    : this.content.theaderBorders,
+                '--thBordersVertical': this.content.isThBorderSplit
+                    ? this.content.thBordersVertical
+                    : this.content.thBorders,
+                '--thBordersHorizontal': this.content.isThBorderSplit
+                    ? this.content.thBordersHorizontal
+                    : this.content.thBorders,
+                '--trBordersVertical': this.content.isTrBorderSplit
+                    ? this.content.trBordersVertical
+                    : this.content.trBorders,
+                '--trBordersHorizontal': this.content.isTrBorderSplit
+                    ? this.content.trBordersHorizontal
+                    : this.content.trBorders,
+                '--tdBordersVertical': this.content.isTdBorderSplit
+                    ? this.content.tdBordersVertical
+                    : this.content.tdBorders,
+                '--tdBordersHorizontal': this.content.isTdBorderSplit
+                    ? this.content.tdBordersHorizontal
+                    : this.content.tdBorders,
             };
         },
         forcedInlineEditing() {
@@ -228,6 +252,31 @@ export default {
     thead,
     th {
         background-color: var(--headerBgColor);
+    }
+
+    thead {
+        border-left: var(--theadBordersVertical);
+        border-right: var(--theadBordersVertical);
+        border-top: var(--theadBordersHorizontal);
+        border-bottom: var(--theadBordersHorizontal);
+    }
+    th {
+        border-left: var(--thBordersVertical);
+        border-right: var(--thBordersVertical);
+        border-top: var(--thBordersHorizontal);
+        border-bottom: var(--thBordersHorizontal);
+    }
+    tr {
+        border-left: var(--trBordersVertical);
+        border-right: var(--trBordersVertical);
+        border-top: var(--trBordersHorizontal);
+        border-bottom: var(--trBordersHorizontal);
+    }
+    td {
+        border-left: var(--tdBordersVertical);
+        border-right: var(--tdBordersVertical);
+        border-top: var(--tdBordersHorizontal);
+        border-bottom: var(--tdBordersHorizontal);
     }
     .body {
         display: table-row-group;
