@@ -303,14 +303,14 @@ export default {
             type: 'Border',
             hidden: content => content.isTheadBorderSplit || !content.displayHeader,
         },
-        theaderBordersVertical: {
+        theadBordersVertical: {
             label: {
                 en: 'Header borders (vertical)',
             },
             type: 'Border',
             hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
         },
-        theaderBordersHorizontal: {
+        theadBordersHorizontal: {
             label: {
                 en: 'Header borders (horizontal)',
             },
