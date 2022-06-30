@@ -271,13 +271,15 @@ export default {
         border-right: var(--trBordersVertical);
         border-top: var(--trBordersHorizontal);
         border-bottom: var(--trBordersHorizontal);
+
+        > :deep(td) {
+            border-left: var(--tdBordersVertical);
+            border-right: var(--tdBordersVertical);
+            border-top: var(--tdBordersHorizontal);
+            border-bottom: var(--tdBordersHorizontal);
+        }
     }
-    td {
-        border-left: var(--tdBordersVertical);
-        border-right: var(--tdBordersVertical);
-        border-top: var(--tdBordersHorizontal);
-        border-bottom: var(--tdBordersHorizontal);
-    }
+
     .body {
         display: table-row-group;
         .grid-row:nth-child(2n + 1) {
