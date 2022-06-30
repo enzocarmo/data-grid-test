@@ -33,6 +33,26 @@ export default {
         { name: 'update:row', label: { en: 'On Row update' }, event: { value: '', id: '' } },
         { name: 'delete:row', label: { en: 'On Row delete' }, event: { value: '', id: '' } },
     ],
+    customStylePropertiesOrder: [
+        'displayHeader',
+        'hasStickyHeader',
+        'headerBackgroundColor',
+        'isTheadBorderSplit',
+        ['theadBorders', 'theadBordersVertical', 'theadBordersHorizontal'],
+        'isThBorderSplit',
+        ['thBorders', 'thBordersVertical', 'thBordersHorizontal'],
+        'verticalAlignement',
+        'actionColumnWidth',
+        'selectColumnWidth',
+        'alternateBackground',
+        'rowBackgroundColor',
+        'rowBackgroundColorAlt',
+        'rowBackgroundColorHover',
+        'isTrBorderSplit',
+        ['trBorders', 'trBordersVertical', 'trBordersHorizontal'],
+        'isTdBorderSplit',
+        ['tdBorders', 'tdBordersVertical', 'tdBordersHorizontal'],
+    ],
     properties: {
         // SETTINGS
         data: {
@@ -175,6 +195,13 @@ export default {
             },
             hidden: content => !content.displayHeader,
         },
+        isTheadBorderSplit: {
+            label: {
+                en: 'Split header border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
         theadBorders: {
             label: {
                 en: 'Header borders',
@@ -281,13 +308,6 @@ export default {
             options: {
                 nullable: true,
             },
-        },
-        isTheadBorderSplit: {
-            label: {
-                en: 'Split header border',
-            },
-            type: 'OnOff',
-            hidden: content => !content.displayHeader,
         },
         isTrBorderSplit: {
             label: {
