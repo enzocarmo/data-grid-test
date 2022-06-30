@@ -1,5 +1,5 @@
 <template>
-    <table class="ww-data-grid" :style="cssVars">
+    <table class="ww-data-grid" :style="cssVars" :class="{ sticky: content.hasStickyHeader }">
         <colgroup>
             <col v-if="content.selectable" :style="{ width: content.selectColumnWidth || 'auto' }" />
             <template v-for="(column, index) in content.columns" :key="index">
@@ -93,6 +93,7 @@ export default {
         },
         cssVars() {
             return {
+                '--headerBgColor': this.content.headerBackgroundColor,
                 '--rowBgColor': this.content.rowBackgroundColor,
                 '--rowBgColorAlt': this.content.alternateBackground
                     ? this.content.rowBackgroundColorAlt
@@ -101,6 +102,30 @@ export default {
                     ? { '--rowBgColorHover': this.content.rowBackgroundColorHover }
                     : {}),
                 '--verticalAlignement': this.content.verticalAlignement,
+                '--theadBordersVertical': this.content.isTheadBorderSplit
+                    ? this.content.theadBordersVertical
+                    : this.content.theadBorders,
+                '--theadBordersHorizontal': this.content.isTheadBorderSplit
+                    ? this.content.theadBordersHorizontal
+                    : this.content.theadBorders,
+                '--thBordersVertical': this.content.isThBorderSplit
+                    ? this.content.thBordersVertical
+                    : this.content.thBorders,
+                '--thBordersHorizontal': this.content.isThBorderSplit
+                    ? this.content.thBordersHorizontal
+                    : this.content.thBorders,
+                '--trBordersVertical': this.content.isTrBorderSplit
+                    ? this.content.trBordersVertical
+                    : this.content.trBorders,
+                '--trBordersHorizontal': this.content.isTrBorderSplit
+                    ? this.content.trBordersHorizontal
+                    : this.content.trBorders,
+                '--tdBordersVertical': this.content.isTdBorderSplit
+                    ? this.content.tdBordersVertical
+                    : this.content.tdBorders,
+                '--tdBordersHorizontal': this.content.isTdBorderSplit
+                    ? this.content.tdBordersHorizontal
+                    : this.content.tdBorders,
             };
         },
         forcedInlineEditing() {
@@ -210,10 +235,51 @@ export default {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
+    position: relative;
     tr,
     th {
         padding: 0;
     }
+
+    &.sticky {
+        isolation: isolate;
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+    }
+    thead,
+    th {
+        background-color: var(--headerBgColor);
+    }
+
+    thead {
+        border-left: var(--theadBordersVertical);
+        border-right: var(--theadBordersVertical);
+        border-top: var(--theadBordersHorizontal);
+        border-bottom: var(--theadBordersHorizontal);
+    }
+    th {
+        border-left: var(--thBordersVertical);
+        border-right: var(--thBordersVertical);
+        border-top: var(--thBordersHorizontal);
+        border-bottom: var(--thBordersHorizontal);
+    }
+    tr {
+        border-left: var(--trBordersVertical);
+        border-right: var(--trBordersVertical);
+        border-top: var(--trBordersHorizontal);
+        border-bottom: var(--trBordersHorizontal);
+
+        > :deep(td) {
+            border-left: var(--tdBordersVertical);
+            border-right: var(--tdBordersVertical);
+            border-top: var(--tdBordersHorizontal);
+            border-bottom: var(--tdBordersHorizontal);
+        }
+    }
+
     .body {
         display: table-row-group;
         .grid-row:nth-child(2n + 1) {
