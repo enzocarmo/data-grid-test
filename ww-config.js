@@ -300,21 +300,21 @@ export default {
             label: {
                 en: 'Header borders',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => content.isTheadBorderSplit || !content.displayHeader,
         },
         theaderBordersVertical: {
             label: {
                 en: 'Header borders (vertical)',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
         },
         theaderBordersHorizontal: {
             label: {
                 en: 'Header borders (horizontal)',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
         },
         isThBorderSplit: {
@@ -328,21 +328,21 @@ export default {
             label: {
                 en: 'Header cell borders',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => content.isThBorderSplit || !content.displayHeader,
         },
         thBordersVertical: {
             label: {
                 en: 'Header cell borders (vertical)',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => !content.isThBorderSplit || !content.displayHeader,
         },
         thBordersHorizontal: {
             label: {
                 en: 'Header cell borders (horizontal)',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => !content.isThBorderSplit || !content.displayHeader,
         },
         isTrBorderSplit: {
@@ -356,21 +356,21 @@ export default {
             label: {
                 en: 'Row borders',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => content.isTrBorderSplit || !content.displayHeader,
         },
         trBordersVertical: {
             label: {
                 en: 'Row borders (vertical)',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => !content.isTrBorderSplit || !content.displayHeader,
         },
         trBordersHorizontal: {
             label: {
                 en: 'Row borders (horizontal)',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => !content.isTrBorderSplit || !content.displayHeader,
         },
         isTdBorderSplit: {
@@ -384,21 +384,21 @@ export default {
             label: {
                 en: 'Cell borders',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => content.isTdBorderSplit || !content.displayHeader,
         },
         tdBordersVertical: {
             label: {
                 en: 'Cell borders (vertical)',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => !content.isTdBorderSplit || !content.displayHeader,
         },
         tdBordersHorizontal: {
             label: {
                 en: 'Cell borders (horizontal)',
             },
-            type: 'Borders',
+            type: 'Border',
             hidden: content => !content.isTdBorderSplit || !content.displayHeader,
         },
         selectable: {
