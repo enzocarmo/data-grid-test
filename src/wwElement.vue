@@ -103,11 +103,11 @@ export default {
                     : {}),
                 '--verticalAlignement': this.content.verticalAlignement,
                 '--theadBordersVertical': this.content.isTheadBorderSplit
-                    ? this.content.theaderBordersVertical
-                    : this.content.theaderBorders,
+                    ? this.content.theadBordersVertical
+                    : this.content.theadBorders,
                 '--theadBordersHorizontal': this.content.isTheadBorderSplit
-                    ? this.content.theaderBordersHorizontal
-                    : this.content.theaderBorders,
+                    ? this.content.theadBordersHorizontal
+                    : this.content.theadBorders,
                 '--thBordersVertical': this.content.isThBorderSplit
                     ? this.content.thBordersVertical
                     : this.content.thBorders,
