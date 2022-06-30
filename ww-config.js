@@ -34,6 +34,7 @@ export default {
         { name: 'delete:row', label: { en: 'On Row delete' }, event: { value: '', id: '' } },
     ],
     properties: {
+        // SETTINGS
         data: {
             label: {
                 en: 'Grid data',
@@ -44,6 +45,7 @@ export default {
             },
             bindable: true,
             defaultValue: [],
+            section: 'settings',
         },
         warning: {
             type: 'Info',
@@ -51,17 +53,20 @@ export default {
             options: {
                 text: { en: 'Please bind your data to an array to configure your data-grid' },
             },
+
+            section: 'settings',
             hidden: content => hasData(content),
         },
         dataIdPath: {
             label: {
-                en: 'Id field',
+                en: 'Unique id',
             },
             type: 'ObjectPropertyPath',
             options: content => ({
                 object: getDataObject(content),
             }),
             hidden: content => !hasData(content),
+            section: 'settings',
         },
         columns: {
             label: {
@@ -125,6 +130,7 @@ export default {
                 },
             },
             defaultValue: [],
+            section: 'settings',
         },
         inlineEditing: {
             label: {
@@ -132,21 +138,214 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            section: 'settings',
+        },
+        selectable: {
+            label: {
+                en: 'Allow selection',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+            section: 'settings',
+        },
+        // HEADER
+        displayHeader: {
+            label: {
+                en: 'Show Header',
+            },
+            type: 'OnOff',
+            defaultValue: true,
+            responsive: true,
+        },
+        hasStickyHeader: {
+            label: {
+                en: 'Sticky Header?',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+            hidden: content => !content.displayHeader,
+        },
+        headerBackgroundColor: {
+            label: {
+                en: 'Header Background color',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+            hidden: content => !content.displayHeader,
+        },
+        theadBorders: {
+            label: {
+                en: 'Header borders',
+            },
+            type: 'Border',
+            hidden: content => content.isTheadBorderSplit || !content.displayHeader,
+        },
+        theadBordersVertical: {
+            label: {
+                en: 'Header borders (vertical)',
+            },
+            type: 'Border',
+            hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
+        },
+        theadBordersHorizontal: {
+            label: {
+                en: 'Header borders (horizontal)',
+            },
+            type: 'Border',
+            hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
+        },
+        isThBorderSplit: {
+            label: {
+                en: 'Split cell header border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
+        thBorders: {
+            label: {
+                en: 'Header cell borders',
+            },
+            type: 'Border',
+            hidden: content => content.isThBorderSplit || !content.displayHeader,
+        },
+        thBordersVertical: {
+            label: {
+                en: 'Header cell borders (vertical)',
+            },
+            type: 'Border',
+            hidden: content => !content.isThBorderSplit || !content.displayHeader,
+        },
+        thBordersHorizontal: {
+            label: {
+                en: 'Header cell borders (horizontal)',
+            },
+            type: 'Border',
+            hidden: content => !content.isThBorderSplit || !content.displayHeader,
+        },
+        // COLUMNS
+        verticalAlignement: {
+            label: { en: 'Vertical Alignement' },
+            type: 'TextSelect',
+            options: {
+                options: [
+                    { value: 'top', label: 'Top' },
+                    { value: 'middle', label: 'Middle' },
+                    { value: 'bottom', label: 'Bottom' },
+                ],
+            },
+            default: 'top',
         },
         actionColumnWidth: {
             label: 'Actions Width',
             type: 'Length',
             hidden: content => !content.inlineEditing,
         },
-        forcedInlineEditing: {
+        selectColumnWidth: {
+            label: 'Select Width',
+            type: 'Length',
+            hidden: content => !content.selectable,
+        },
+        alternateBackground: {
             label: {
-                en: 'Forced display edit',
+                en: 'Alternate background?',
             },
             type: 'OnOff',
-            editorOnly: true,
             defaultValue: false,
-            hidden: content => !content.inlineEditing,
         },
+        rowBackgroundColor: {
+            label: {
+                en: 'Row Background color',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+        },
+        rowBackgroundColorAlt: {
+            label: {
+                en: 'Row Background color (alt)',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+            hidden: content => !content.alternateBackground,
+        },
+        rowBackgroundColorHover: {
+            label: {
+                en: 'Row Background color (hover)',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+        },
+        isTheadBorderSplit: {
+            label: {
+                en: 'Split header border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
+        isTrBorderSplit: {
+            label: {
+                en: 'Split row border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
+        trBorders: {
+            label: {
+                en: 'Row borders',
+            },
+            type: 'Border',
+            hidden: content => content.isTrBorderSplit || !content.displayHeader,
+        },
+        trBordersVertical: {
+            label: {
+                en: 'Row borders (vertical)',
+            },
+            type: 'Border',
+            hidden: content => !content.isTrBorderSplit || !content.displayHeader,
+        },
+        trBordersHorizontal: {
+            label: {
+                en: 'Row borders (horizontal)',
+            },
+            type: 'Border',
+            hidden: content => !content.isTrBorderSplit || !content.displayHeader,
+        },
+        isTdBorderSplit: {
+            label: {
+                en: 'Split cell border',
+            },
+            type: 'OnOff',
+            hidden: content => !content.displayHeader,
+        },
+        tdBorders: {
+            label: {
+                en: 'Cell borders',
+            },
+            type: 'Border',
+            hidden: content => content.isTdBorderSplit || !content.displayHeader,
+        },
+        tdBordersVertical: {
+            label: {
+                en: 'Cell borders (vertical)',
+            },
+            type: 'Border',
+            hidden: content => !content.isTdBorderSplit || !content.displayHeader,
+        },
+        tdBordersHorizontal: {
+            label: {
+                en: 'Cell borders (horizontal)',
+            },
+            type: 'Border',
+            hidden: content => !content.isTdBorderSplit || !content.displayHeader,
+        },
+        // ELEMENTS
         editContainer: {
             navigator: {
                 group: 'Edit Buttons',
@@ -228,186 +427,6 @@ export default {
             },
             defaultValue: { isWwObject: true, type: 'ww-text', state: { name: 'Header - Actions' } },
         },
-        displayHeader: {
-            label: {
-                en: 'Show Header',
-            },
-            type: 'OnOff',
-            defaultValue: true,
-            responsive: true,
-        },
-        alternateBackground: {
-            label: {
-                en: 'Alternate background?',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-        },
-        headerBackgroundColor: {
-            label: {
-                en: 'Header Background color',
-            },
-            type: 'Color',
-            options: {
-                nullable: true,
-            },
-            hidden: content => !content.displayHeader,
-        },
-        rowBackgroundColor: {
-            label: {
-                en: 'Row Background color',
-            },
-            type: 'Color',
-            options: {
-                nullable: true,
-            },
-        },
-        rowBackgroundColorAlt: {
-            label: {
-                en: 'Row Background color (alt)',
-            },
-            type: 'Color',
-            options: {
-                nullable: true,
-            },
-            hidden: content => !content.alternateBackground,
-        },
-        rowBackgroundColorHover: {
-            label: {
-                en: 'Row Background color (hover)',
-            },
-            type: 'Color',
-            options: {
-                nullable: true,
-            },
-        },
-        hasStickyHeader: {
-            label: {
-                en: 'Sticky Header?',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            hidden: content => !content.displayHeader,
-        },
-        isTheadBorderSplit: {
-            label: {
-                en: 'Split header border',
-            },
-            type: 'OnOff',
-            hidden: content => !content.displayHeader,
-        },
-        theadBorders: {
-            label: {
-                en: 'Header borders',
-            },
-            type: 'Border',
-            hidden: content => content.isTheadBorderSplit || !content.displayHeader,
-        },
-        theadBordersVertical: {
-            label: {
-                en: 'Header borders (vertical)',
-            },
-            type: 'Border',
-            hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
-        },
-        theadBordersHorizontal: {
-            label: {
-                en: 'Header borders (horizontal)',
-            },
-            type: 'Border',
-            hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
-        },
-        isThBorderSplit: {
-            label: {
-                en: 'Split cell header border',
-            },
-            type: 'OnOff',
-            hidden: content => !content.displayHeader,
-        },
-        thBorders: {
-            label: {
-                en: 'Header cell borders',
-            },
-            type: 'Border',
-            hidden: content => content.isThBorderSplit || !content.displayHeader,
-        },
-        thBordersVertical: {
-            label: {
-                en: 'Header cell borders (vertical)',
-            },
-            type: 'Border',
-            hidden: content => !content.isThBorderSplit || !content.displayHeader,
-        },
-        thBordersHorizontal: {
-            label: {
-                en: 'Header cell borders (horizontal)',
-            },
-            type: 'Border',
-            hidden: content => !content.isThBorderSplit || !content.displayHeader,
-        },
-        isTrBorderSplit: {
-            label: {
-                en: 'Split row border',
-            },
-            type: 'OnOff',
-            hidden: content => !content.displayHeader,
-        },
-        trBorders: {
-            label: {
-                en: 'Row borders',
-            },
-            type: 'Border',
-            hidden: content => content.isTrBorderSplit || !content.displayHeader,
-        },
-        trBordersVertical: {
-            label: {
-                en: 'Row borders (vertical)',
-            },
-            type: 'Border',
-            hidden: content => !content.isTrBorderSplit || !content.displayHeader,
-        },
-        trBordersHorizontal: {
-            label: {
-                en: 'Row borders (horizontal)',
-            },
-            type: 'Border',
-            hidden: content => !content.isTrBorderSplit || !content.displayHeader,
-        },
-        isTdBorderSplit: {
-            label: {
-                en: 'Split cell border',
-            },
-            type: 'OnOff',
-            hidden: content => !content.displayHeader,
-        },
-        tdBorders: {
-            label: {
-                en: 'Cell borders',
-            },
-            type: 'Border',
-            hidden: content => content.isTdBorderSplit || !content.displayHeader,
-        },
-        tdBordersVertical: {
-            label: {
-                en: 'Cell borders (vertical)',
-            },
-            type: 'Border',
-            hidden: content => !content.isTdBorderSplit || !content.displayHeader,
-        },
-        tdBordersHorizontal: {
-            label: {
-                en: 'Cell borders (horizontal)',
-            },
-            type: 'Border',
-            hidden: content => !content.isTdBorderSplit || !content.displayHeader,
-        },
-        selectable: {
-            label: {
-                en: 'Allow selection',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-        },
         selectCheckbox: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-checkbox', state: { name: 'Select checkbox' } },
@@ -415,22 +434,14 @@ export default {
                 hidden: content => !content.displayHeader || !content.selectable,
             },
         },
-        selectColumnWidth: {
-            label: 'Select Width',
-            type: 'Length',
-            hidden: content => !content.selectable,
-        },
-        verticalAlignement: {
-            label: { en: 'Vertical Alignement' },
-            type: 'TextSelect',
-            options: {
-                options: [
-                    { value: 'top', label: 'Top' },
-                    { value: 'middle', label: 'Middle' },
-                    { value: 'bottom', label: 'Bottom' },
-                ],
-            },
-            default: 'top',
-        },
+        // forcedInlineEditing: {
+        //     label: {
+        //         en: 'Show edit',
+        //     },
+        //     type: 'OnOff',
+        //     editorOnly: true,
+        //     defaultValue: false,
+        //     hidden: content => !content.inlineEditing,
+        // },
     },
 };
