@@ -158,6 +158,15 @@ export default {
             defaultValue: false,
             section: 'settings',
         },
+        forcedInlineEditing: {
+            label: {
+                en: 'Forced display edit',
+            },
+            type: 'OnOff',
+            editorOnly: true,
+            defaultValue: false,
+            hidden: content => !content.inlineEditing,
+        },
         selectable: {
             label: {
                 en: 'Allow selection',
