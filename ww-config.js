@@ -104,6 +104,8 @@ export default {
                                     options: [
                                         { value: 'text', label: 'Text' },
                                         { value: 'select', label: 'Select' },
+                                        { value: 'multiselect', label: 'Multi-select' },
+                                        { value: 'date', label: 'Date' },
                                         { value: 'custom', label: 'Custom' },
                                     ],
                                 },

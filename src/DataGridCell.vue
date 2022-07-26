@@ -2,7 +2,7 @@
     <td class="ww-data-grid-cell">
         <wwElement
             v-if="element && element.uid"
-            :ww-props="{ value: internalValue, readonly: !edit }"
+            :ww-props="{ [isMultiSelect ? 'value' : 'currentSelection']: internalValue, readonly: !edit }"
             :uid="element.uid"
             @element-event="onElementEvent"
         ></wwElement>
@@ -14,6 +14,8 @@
 
 <script>
 import { ref, computed, watch, toRef } from 'vue';
+import { TYPE_OF_ELEMENTS } from './constants';
+
 export default {
     expose: ['internalValue', 'column'],
     props: {
@@ -56,10 +58,13 @@ export default {
             if (!this.column) return null;
             return this.columnsElement[this.column.id];
         },
+        isMultiSelect() {
+            return this.type === TYPE_OF_ELEMENTS['multiselect'];
+        },
     },
     methods: {
         onElementEvent($event) {
-            if ($event.type === 'update:value') {
+            if ($event.type === 'update:value' || $event.type === 'update:currentSelection') {
                 this.setValue($event.value);
             }
         },
