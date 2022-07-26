@@ -2,7 +2,7 @@
     <td class="ww-data-grid-cell">
         <wwElement
             v-if="element && element.uid"
-            :ww-props="{ [isMultiSelect ? 'value' : 'currentSelection']: internalValue, readonly: !edit }"
+            :ww-props="{ [isMultiSelect ? 'currentSelection' : 'value']: internalValue, readonly: !edit }"
             :uid="element.uid"
             @element-event="onElementEvent"
         ></wwElement>
