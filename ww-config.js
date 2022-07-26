@@ -61,7 +61,7 @@ export default {
             options: {
                 text: { en: 'Bind your data' },
             },
-            bindable: true,
+            bindable: 'repeatable',
             defaultValue: [],
             section: 'settings',
         },
