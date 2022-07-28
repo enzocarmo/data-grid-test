@@ -60,7 +60,7 @@ export default {
                 if (event.index === 0) {
                     this.$emit('validate');
                 } else {
-                    this.$emit('update:edit', false);
+                    this.$emit('cancel');
                 }
             }
         },
