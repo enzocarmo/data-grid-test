@@ -414,12 +414,12 @@ export default {
                         {
                             isWwObject: true,
                             type: 'ww-button',
-                            content: { text: { en: 'Cancel' } },
+                            content: { text: { en: 'Validate' } },
                         },
                         {
                             isWwObject: true,
                             type: 'ww-button',
-                            content: { text: { en: 'Validate' } },
+                            content: { text: { en: 'Cancel' } },
                         },
                     ],
                 },
