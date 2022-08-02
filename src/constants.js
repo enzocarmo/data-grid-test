@@ -1,7 +1,7 @@
 export const TYPE_OF_ELEMENTS = {
     text: 'aeb78b9a-6fb6-4c49-931d-faedcfad67ba',
     select: 'a36eacfa-16af-4363-858d-a03177f211d4',
-    date: 'be083390-7049-4506-a6b9-ab41640c98f9',
-    multiselect: '8e408a93-2f7c-459d-98b6-0f24cda9cc6e',
+    date: 'e9556cc0-eca0-4abf-8d58-40962e76997c',
+    multiselect: '2d18ef4c-e9e5-4dc6-a29d-01d9f797be5e',
     custom: 'ww-flexbox',
 };
