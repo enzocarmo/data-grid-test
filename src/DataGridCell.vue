@@ -17,7 +17,7 @@ import { ref, computed, watch, toRef } from 'vue';
 import { TYPE_OF_ELEMENTS } from './constants';
 
 export default {
-    expose: ['internalValue', 'column'],
+    expose: ['internalValue', 'column', 'resetValue'],
     props: {
         column: { type: Object, required: true },
         item: { type: Object, required: true },
@@ -68,6 +68,7 @@ export default {
                 this.setValue($event.value);
             }
         },
+        // /!\ Use externally
         resetValue() {
             this.internalValue = this.previousValue;
         },
