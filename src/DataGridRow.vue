@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr :class="{ bgSelected: isSelected }">
         <td v-if="selectable">
             <wwElement
                 v-bind="selectCheckbox"

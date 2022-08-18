@@ -101,6 +101,9 @@ export default {
                 ...(this.content.rowBackgroundColorHover
                     ? { '--rowBgColorHover': this.content.rowBackgroundColorHover }
                     : {}),
+                ...(this.content.rowBackgroundColorSelected
+                    ? { '--rowBgColorSelected': this.content.rowBackgroundColorSelected }
+                    : {}),
                 '--verticalAlignement': this.content.verticalAlignement,
                 '--theadBordersVertical': this.content.isTheadBorderSplit
                     ? this.content.theadBordersVertical
@@ -294,6 +297,9 @@ export default {
             &:hover {
                 background-color: var(--rowBgColorHover, var(--rowBgColorAlt));
             }
+        }
+        .bgSelected {
+            background-color: var(--rowBgColorSelected) !important
         }
         tr {
             vertical-align: var(--verticalAlignement);

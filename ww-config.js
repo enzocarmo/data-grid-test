@@ -40,7 +40,7 @@ export default {
             'actionColumnWidth',
             'selectColumnWidth',
             'alternateBackground',
-            ['rowBackgroundColor', 'rowBackgroundColorAlt', 'rowBackgroundColorHover'],
+            ['rowBackgroundColor', 'rowBackgroundColorAlt', 'rowBackgroundColorHover', 'rowBackgroundColorSelected'],
             'isTrBorderSplit',
             ['trBorders', 'trBordersVertical', 'trBordersHorizontal'],
             'isTdBorderSplit',
@@ -312,6 +312,15 @@ export default {
         rowBackgroundColorHover: {
             label: {
                 en: 'Row Background color (hover)',
+            },
+            type: 'Color',
+            options: {
+                nullable: true,
+            },
+        },
+        rowBackgroundColorSelected: {
+            label: {
+                en: 'Row Background color (selected)',
             },
             type: 'Color',
             options: {
