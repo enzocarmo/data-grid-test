@@ -29,22 +29,20 @@ export default {
             icon: 'data-grid',
         },
         customStylePropertiesOrder: [
+            'verticalAlignement',
+            'alternateBackground',
+            ['rowBackgroundColor', 'rowBackgroundColorAlt', 'rowBackgroundColorHover', 'rowBackgroundColorSelected'],
             'displayHeader',
             'hasStickyHeader',
             'headerBackgroundColor',
-            'isTheadBorderSplit',
-            ['theadBorders', 'theadBordersVertical', 'theadBordersHorizontal'],
-            'isThBorderSplit',
-            ['thBorders', 'thBordersVertical', 'thBordersHorizontal'],
-            'verticalAlignement',
-            'actionColumnWidth',
-            'selectColumnWidth',
-            'alternateBackground',
-            ['rowBackgroundColor', 'rowBackgroundColorAlt', 'rowBackgroundColorHover', 'rowBackgroundColorSelected'],
             'isTrBorderSplit',
             ['trBorders', 'trBordersVertical', 'trBordersHorizontal'],
             'isTdBorderSplit',
             ['tdBorders', 'tdBordersVertical', 'tdBordersHorizontal'],
+            'isTheadBorderSplit',
+            ['theadBorders', 'theadBordersVertical', 'theadBordersHorizontal'],
+            'isThBorderSplit',
+            ['thBorders', 'thBordersVertical', 'thBordersHorizontal'],
         ],
     },
     triggerEvents: [
@@ -61,6 +59,7 @@ export default {
             event: { value: '', id: '' },
             getTestEvent: 'getTestEvent',
         },
+        { name: 'sort', label: { en: 'On Sort' }, event: { value: '', column: '' } },
     ],
     properties: {
         // SETTINGS
@@ -114,6 +113,10 @@ export default {
                     type: 'Object',
                     options: {
                         item: {
+                            name: {
+                                label: 'Name',
+                                type: 'Text',
+                            },
                             type: {
                                 label: { en: 'Type' },
                                 type: 'TextSelect',
@@ -122,6 +125,7 @@ export default {
                                         { value: 'text', label: 'Text' },
                                         { value: 'select', label: 'Select' },
                                         { value: 'multiselect', label: 'Multi-select' },
+                                        { value: 'checkbox', label: 'Checkbox' },
                                         { value: 'date', label: 'Date' },
                                         { value: 'custom', label: 'Custom' },
                                     ],
@@ -156,12 +160,17 @@ export default {
                                 bindable: true,
                                 defaultValue: true,
                                 hidden: content => !content.inlineEditing,
-                                 /* wwEditor:start */
-                                 bindingValidation: {
+                                /* wwEditor:start */
+                                bindingValidation: {
                                     type: 'boolean',
                                     tooltip: 'A boolean that defines the edition state: `true | false`',
                                 },
                                 /* wwEditor:end */
+                            },
+                            sortable: {
+                                label: { en: 'Sortable' },
+                                type: 'OnOff',
+                                defaultValue: false,
                             },
                             id: {
                                 hidden: true,
@@ -174,12 +183,24 @@ export default {
                 remove: 'removeColumn',
                 movable: true,
                 expandable: true,
-                getItemLabel(_, index) {
-                    return `Column ${index + 1}`;
+                getItemLabel(item, index) {
+                    return (item && item.name) || `Column ${index + 1}`;
                 },
             },
             defaultValue: [],
             section: 'settings',
+        },
+        actionColumnWidth: {
+            label: 'Actions Width',
+            type: 'Length',
+            section: 'settings',
+            hidden: content => !content.inlineEditing,
+        },
+        selectColumnWidth: {
+            label: 'Select Width',
+            type: 'Length',
+            section: 'settings',
+            hidden: content => !content.selectable,
         },
         inlineEditing: {
             label: {
@@ -191,11 +212,12 @@ export default {
         },
         forcedInlineEditing: {
             label: {
-                en: 'Forced display edit',
+                en: 'See edit mode (1st line)',
             },
             type: 'OnOff',
             editorOnly: true,
             defaultValue: false,
+            section: 'settings',
             hidden: content => !content.inlineEditing,
         },
         selectable: {
@@ -301,16 +323,6 @@ export default {
                 ],
             },
             default: 'top',
-        },
-        actionColumnWidth: {
-            label: 'Actions Width',
-            type: 'Length',
-            hidden: content => !content.inlineEditing,
-        },
-        selectColumnWidth: {
-            label: 'Select Width',
-            type: 'Length',
-            hidden: content => !content.selectable,
         },
         alternateBackground: {
             label: {
@@ -498,17 +510,21 @@ export default {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-checkbox', state: { name: 'Select checkbox' } },
             navigator: {
+                group: 'UI elements',
                 hidden: content => !content.displayHeader || !content.selectable,
             },
         },
-        // forcedInlineEditing: {
-        //     label: {
-        //         en: 'Show edit',
-        //     },
-        //     type: 'OnOff',
-        //     editorOnly: true,
-        //     defaultValue: false,
-        //     hidden: content => !content.inlineEditing,
-        // },
+        sortIcon: {
+            hidden: true,
+            defaultValue: {
+                isWwObject: true,
+                type: 'ww-icon',
+                state: { name: 'Sort Icon' },
+                content: { icon: 'wwi wwi-chevron-down' },
+            },
+            navigator: {
+                group: 'UI elements',
+            },
+        },
     },
 };
