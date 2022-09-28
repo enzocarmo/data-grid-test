@@ -64,6 +64,12 @@ export default {
             bindable: 'repeatable',
             defaultValue: [],
             section: 'settings',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'array',
+                tooltip: 'A collection of data in array format: `[{}, {}, ...]`',
+            },
+            /* wwEditor:end */
         },
         warning: {
             type: 'Info',
@@ -126,6 +132,12 @@ export default {
                                 type: 'OnOff',
                                 bindable: true,
                                 defaultValue: true,
+                                /* wwEditor:start */
+                                bindingValidation: {
+                                    type: 'boolean',
+                                    tooltip: 'A boolean that defines the display: `true | false`',
+                                },
+                                /* wwEditor:end */
                             },
                             editable: {
                                 label: { en: 'Editable' },
@@ -133,6 +145,12 @@ export default {
                                 bindable: true,
                                 defaultValue: true,
                                 hidden: content => !content.inlineEditing,
+                                 /* wwEditor:start */
+                                 bindingValidation: {
+                                    type: 'boolean',
+                                    tooltip: 'A boolean that defines the edition state: `true | false`',
+                                },
+                                /* wwEditor:end */
                             },
                             id: {
                                 hidden: true,
