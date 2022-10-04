@@ -90,9 +90,9 @@ export default {
             label: {
                 en: 'Unique id',
             },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             options: content => ({
-                object: getDataObject(content),
+                template: getDataObject(content),
             }),
             hidden: content => !hasData(content),
             section: 'settings',

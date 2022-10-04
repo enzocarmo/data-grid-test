@@ -76,7 +76,9 @@ export default {
             resettable: true,
         });
 
-        return { selectedRows, setSelectedRows };
+        const { resolveMappingFormula } = wwLib.wwFormula.useFormula();
+
+        return { selectedRows, setSelectedRows, resolveMappingFormula };
     },
     data() {
         return {
@@ -174,7 +176,7 @@ export default {
     },
     methods: {
         getRowId(item, rowIndex) {
-            return _.get(item, this.content.dataIdPath, rowIndex);
+            return this.resolveMappingFormula(this.content.dataIdPath, item, rowIndex);
         },
         /* wwEditor:start */
         async addColumn() {
@@ -232,7 +234,7 @@ export default {
         getTestEvent() {
             if (!this.content.data.length) throw new Error('No data found');
             return {
-                id: _.get(this.content.data[0], this.content.dataIdPath) || 0,
+                id: this.resolveMappingFormula(this.content.dataIdPath, this.content.data[0], 0),
                 value: this.content.data[0],
             };
         },
@@ -308,7 +310,7 @@ export default {
             }
         }
         .bgSelected {
-            background-color: var(--rowBgColorSelected) !important
+            background-color: var(--rowBgColorSelected) !important;
         }
         tr {
             vertical-align: var(--verticalAlignement);
