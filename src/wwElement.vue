@@ -228,6 +228,15 @@ export default {
                 this.setSelectedRows([...this.selectedRows].filter(selected => selected && selected.id !== id));
             }
         },
+        /* wwEditor:start */
+        getTestEvent() {
+            if (!this.content.data.length) throw new Error('No data found');
+            return {
+                id: _.get(this.content.data[0], this.content.dataIdPath) || 0,
+                value: this.content.data[0],
+            };
+        },
+        /* wwEditor:end */
     },
 };
 </script>
