@@ -48,8 +48,19 @@ export default {
         ],
     },
     triggerEvents: [
-        { name: 'update:row', label: { en: 'On Row update' }, event: { value: '', id: '' }, default: true },
-        { name: 'delete:row', label: { en: 'On Row delete' }, event: { value: '', id: '' } },
+        {
+            name: 'update:row',
+            label: { en: 'On Row update' },
+            event: { value: '', id: '' },
+            getTestEvent: 'getTestEvent',
+            default: true,
+        },
+        {
+            name: 'delete:row',
+            label: { en: 'On Row delete' },
+            event: { value: '', id: '' },
+            getTestEvent: 'getTestEvent',
+        },
     ],
     properties: {
         // SETTINGS
