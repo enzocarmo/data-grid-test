@@ -65,7 +65,12 @@ export default {
         },
         element() {
             if (!this.column) return null;
-            if (this.column.type === 'custom' && this.column.editable && this.edit) {
+            if (
+                this.column.type === 'custom' &&
+                this.column.editable &&
+                this.edit &&
+                this.editableCustomColumnsElement[this.column.id]
+            ) {
                 return this.editableCustomColumnsElement[this.column.id];
             }
             return this.columnsElement[this.column.id];
