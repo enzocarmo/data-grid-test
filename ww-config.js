@@ -180,7 +180,7 @@ export default {
                                     ],
                                 },
                                 hidden: (content, sidepanelContent, boundProps, wwProps, array) =>
-                                    !(array.item && array.item.type === 'Custom' && array.item.editable),
+                                    !(array.item && array.item.type === 'custom' && array.item.editable),
                             },
                             sortable: {
                                 label: { en: 'Sortable' },

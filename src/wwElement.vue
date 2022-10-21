@@ -203,7 +203,7 @@ export default {
                     }
 
                     // Create editable custom column elements
-                    if (type === 'custom' && editable) {
+                    if (type === 'custom' && editable && editableType) {
                         const editableUid =
                             this.content.editableCustomColumnsElement[id] &&
                             this.content.editableCustomColumnsElement[id].uid;
