@@ -51,6 +51,7 @@
                     :item="item"
                     :columns="content.columns"
                     :columns-element="content.columnsElement"
+                    :editable-custom-columns-element="content.editableCustomColumnsElement"
                     :is-edit-available="content.inlineEditing"
                     :edit="
                         (forcedInlineEditing && rowIndex === 0) ||
@@ -182,7 +183,8 @@ export default {
             handler(columns) {
                 if (!Array.isArray(columns)) return;
                 if (this.wwEditorState.isACopy) return;
-                columns.forEach(async ({ type, id }) => {
+                columns.forEach(async ({ type, id, editable, editableType }) => {
+                    // Create column elements
                     const uid = this.content.columnsElement[id] && this.content.columnsElement[id].uid;
                     const { wwObjectBaseId: currentType } = uid ? wwLib.wwObjectHelper.getWwObject(uid) || {} : {};
                     if (!uid || currentType !== TYPE_OF_ELEMENTS[type]) {
@@ -198,6 +200,35 @@ export default {
                                 [id]: element,
                             },
                         });
+                    }
+
+                    // Create editable custom column elements
+                    if (type === 'custom' && editable) {
+                        const editableUid =
+                            this.content.editableCustomColumnsElement[id] &&
+                            this.content.editableCustomColumnsElement[id].uid;
+                        const { wwObjectBaseId: currentEditableType } = editableUid
+                            ? wwLib.wwObjectHelper.getWwObject(editableUid) || {}
+                            : {};
+                        if (!editableUid || currentEditableType !== TYPE_OF_ELEMENTS[editableType]) {
+                            const element = await wwLib.createElement(
+                                TYPE_OF_ELEMENTS[editableType],
+                                {},
+                                { name: `Editable Cell - ${type}` },
+                                this.wwFrontState.sectionId
+                            );
+                            this.$emit('update:content:effect', {
+                                editableCustomColumnsElement: {
+                                    ...this.content.editableCustomColumnsElement,
+                                    [id]: element,
+                                },
+                            });
+                        }
+                        // Delete editable custom column elements
+                    } else if (this.content.editableCustomColumnsElement[id]) {
+                        const editableCustomColumnsElement = { ...this.content.editableCustomColumnsElement };
+                        delete editableCustomColumnsElement[id];
+                        this.$emit('update:content:effect', { editableCustomColumnsElement });
                     }
                 });
             },
@@ -235,6 +266,11 @@ export default {
                 const headerTextElements = { ...this.content.headerTextElements };
                 delete headerTextElements[col.id];
                 update.headerTextElements = headerTextElements;
+            }
+            if (this.content.editableCustomColumnsElement[col.id]) {
+                const editableCustomColumnsElement = { ...this.content.editableCustomColumnsElement };
+                delete editableCustomColumnsElement[col.id];
+                update.editableCustomColumnsElement = editableCustomColumnsElement;
             }
             this.$emit('update:content', update);
         },

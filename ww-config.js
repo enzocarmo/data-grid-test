@@ -167,6 +167,21 @@ export default {
                                 },
                                 /* wwEditor:end */
                             },
+                            editableType: {
+                                label: { en: 'Edition Type' },
+                                type: 'TextSelect',
+                                options: {
+                                    options: [
+                                        { value: 'text', label: 'Text' },
+                                        { value: 'select', label: 'Select' },
+                                        { value: 'multiselect', label: 'Multi-select' },
+                                        { value: 'checkbox', label: 'Checkbox' },
+                                        { value: 'date', label: 'Date' },
+                                    ],
+                                },
+                                hidden: (content, sidepanelContent, boundProps, wwProps, array) =>
+                                    !(array.item && array.item.type === 'Custom' && array.item.editable),
+                            },
                             sortable: {
                                 label: { en: 'Sortable' },
                                 type: 'OnOff',
@@ -480,6 +495,13 @@ export default {
             defaultValue: {},
             navigator: {
                 group: 'Cells',
+            },
+        },
+        editableCustomColumnsElement: {
+            hidden: true,
+            defaultValue: {},
+            navigator: {
+                group: 'Editable Cells',
             },
         },
         headerTextSelectable: {

@@ -26,6 +26,7 @@ export default {
         column: { type: Object, required: true },
         item: { type: Object, required: true },
         columnsElement: { type: Object, required: true },
+        editableCustomColumnsElement: { type: Object, required: true },
         edit: { type: Boolean, default: false },
         rowUniqueId: { required: true, type: String },
     },
@@ -57,10 +58,16 @@ export default {
     computed: {
         type() {
             if (!this.column) return null;
+            if (this.column.type === 'custom' && this.column.editable && this.edit) {
+                return this.column.editableType;
+            }
             return this.column.type;
         },
         element() {
             if (!this.column) return null;
+            if (this.column.type === 'custom' && this.column.editable && this.edit) {
+                return this.editableCustomColumnsElement[this.column.id];
+            }
             return this.columnsElement[this.column.id];
         },
         isMultiSelect() {

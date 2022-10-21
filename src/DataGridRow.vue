@@ -15,6 +15,7 @@
                 :item="item"
                 :edit="column.editable && edit"
                 :columns-element="columnsElement"
+                :editable-custom-columns-element="editableCustomColumnsElement"
                 :row-unique-id="uniqueId"
             >
                 <form
@@ -54,6 +55,7 @@ export default {
         item: { type: Object, required: true },
         columns: { type: Array, required: true },
         columnsElement: { type: Object, required: true },
+        editableCustomColumnsElement: { type: Object, required: true },
         isEditAvailable: { type: Boolean, default: false },
         editContainer: { type: Object, required: true },
         editingContainer: { type: Object, required: true },
