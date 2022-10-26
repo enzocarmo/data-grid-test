@@ -24,9 +24,9 @@ export default {
         label: {
             en: 'DataGrid',
         },
-        icon: 'data-grid',
+        icon: 'table',
         bubble: {
-            icon: 'data-grid',
+            icon: 'table',
         },
         customStylePropertiesOrder: [
             'displayHeader',
