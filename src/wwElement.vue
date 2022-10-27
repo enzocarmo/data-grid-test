@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { TYPE_OF_ELEMENTS } from './constants';
+import { TYPE_OF_ELEMENTS, LEGACY_TYPE_OF_ELEMENTS } from './constants';
 import DataGridRow from './DataGridRow.vue';
 
 export default {
@@ -187,7 +187,8 @@ export default {
                     // Create column elements
                     const uid = this.content.columnsElement[id] && this.content.columnsElement[id].uid;
                     const { wwObjectBaseId: currentType } = uid ? wwLib.wwObjectHelper.getWwObject(uid) || {} : {};
-                    if (!uid || currentType !== TYPE_OF_ELEMENTS[type]) {
+                    const isLegacy = (LEGACY_TYPE_OF_ELEMENTS[type] || []).includes(currentType);
+                    if (!uid || (currentType !== TYPE_OF_ELEMENTS[type] && !isLegacy)) {
                         const element = await wwLib.createElement(
                             TYPE_OF_ELEMENTS[type],
                             {},
@@ -205,6 +206,7 @@ export default {
                     // Create editable custom column elements
                     if (type === 'custom' && editable && editableType) {
                         const editableUid =
+                            this.content.editableCustomColumnsElement &&
                             this.content.editableCustomColumnsElement[id] &&
                             this.content.editableCustomColumnsElement[id].uid;
                         const { wwObjectBaseId: currentEditableType } = editableUid
@@ -225,7 +227,10 @@ export default {
                             });
                         }
                         // Delete editable custom column elements
-                    } else if (this.content.editableCustomColumnsElement[id]) {
+                    } else if (
+                        this.content.editableCustomColumnsElement &&
+                        this.content.editableCustomColumnsElement[id]
+                    ) {
                         const editableCustomColumnsElement = { ...this.content.editableCustomColumnsElement };
                         delete editableCustomColumnsElement[id];
                         this.$emit('update:content:effect', { editableCustomColumnsElement });
