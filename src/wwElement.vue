@@ -230,10 +230,11 @@ export default {
         },
         /* wwEditor:start */
         getTestEvent() {
-            if (!this.content.data.length) throw new Error('No data found');
+            const data = wwLib.wwCollection.getCollectionData(this.content.data);
+            if (!data || !data[0]) throw new Error('No data found');
             return {
-                id: _.get(this.content.data[0], this.content.dataIdPath) || 0,
-                value: this.content.data[0],
+                id: _.get(data[0], this.content.dataIdPath) || 0,
+                value: data[0],
             };
         },
         /* wwEditor:end */
@@ -308,7 +309,7 @@ export default {
             }
         }
         .bgSelected {
-            background-color: var(--rowBgColorSelected) !important
+            background-color: var(--rowBgColorSelected) !important;
         }
         tr {
             vertical-align: var(--verticalAlignement);
