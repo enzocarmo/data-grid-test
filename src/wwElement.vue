@@ -5,17 +5,37 @@
             <template v-for="(column, index) in content.columns" :key="index">
                 <col v-if="column.display" :style="{ width: column.width || 'auto' }" />
             </template>
-
             <col v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }" />
         </colgroup>
         <thead v-if="content.displayHeader">
-            <th v-if="content.selectable"><wwElement v-bind="content.headerTextSelectable" /></th>
+            <th v-if="content.selectable">
+                <div class="columnHeader">
+                    <wwElement v-bind="content.headerTextSelectable" />
+                    <wwElement
+                        v-bind="content.selectCheckbox"
+                        :states="isAllSelected ? ['checked'] : []"
+                        @click="toggleAllSelection"
+                    ></wwElement>
+                </div>
+            </th>
             <template v-for="(column, index) in content.columns" :key="index">
                 <th v-if="column.display">
-                    <wwElement
-                        v-if="content.headerTextElements[column.id]"
-                        :uid="content.headerTextElements[column.id].uid"
-                    ></wwElement>
+                    <div class="columnHeader">
+                        <wwElement
+                            v-if="content.headerTextElements[column.id]"
+                            :uid="content.headerTextElements[column.id].uid"
+                        ></wwElement>
+                        <wwElement
+                            v-if="content.sortIcon && column.sortable"
+                            :uid="content.sortIcon.uid"
+                            :class="{
+                                '-reversed':
+                                    columnsSort.order === 'DESC' && columnsSort.name === (column.name || index),
+                            }"
+                            :states="columnsSort.name === (column.name || index) ? ['active'] : ''"
+                            @click="toggleSort(column, index)"
+                        ></wwElement>
+                    </div>
                 </th>
             </template>
             <th v-if="content.inlineEditing" :style="{ width: content.actionColumnWidth || 'auto' }">
@@ -31,6 +51,7 @@
                     :item="item"
                     :columns="content.columns"
                     :columns-element="content.columnsElement"
+                    :editable-custom-columns-element="content.editableCustomColumnsElement"
                     :is-edit-available="content.inlineEditing"
                     :edit="
                         (forcedInlineEditing && rowIndex === 0) ||
@@ -75,8 +96,14 @@ export default {
             readonly: true,
             resettable: true,
         });
+        const { value: columnsSort, setValue: setColumnsSort } = wwLib.wwVariable.useComponentVariable({
+            uid: props.uid,
+            name: 'sort',
+            defaultValue: { name: null, order: 'ASC' },
+            type: 'Object',
+        });
 
-        return { selectedRows, setSelectedRows };
+        return { selectedRows, setSelectedRows, columnsSort, setColumnsSort };
     },
     data() {
         return {
@@ -141,6 +168,13 @@ export default {
             /* wwEditor:end */
             return false;
         },
+        isAllSelected() {
+            const data = wwLib.wwCollection.getCollectionData(this.content.data);
+            if (!Array.isArray(data)) {
+                return false;
+            }
+            return data.every((item, index) => this.selectedRows.some(({ id }) => id === this.getRowId(item, index)));
+        },
     },
     watch: {
         /* wwEditor:start */
@@ -149,11 +183,11 @@ export default {
             handler(columns) {
                 if (!Array.isArray(columns)) return;
                 if (this.wwEditorState.isACopy) return;
-                columns.forEach(async ({ type, id }) => {
-                    if (
-                        !this.content.columnsElement[id] ||
-                        this.content.columnsElement[id].type !== TYPE_OF_ELEMENTS[type]
-                    ) {
+                columns.forEach(async ({ type, id, editable, editableType }) => {
+                    // Create column elements
+                    const uid = this.content.columnsElement[id] && this.content.columnsElement[id].uid;
+                    const { wwObjectBaseId: currentType } = uid ? wwLib.wwObjectHelper.getWwObject(uid) || {} : {};
+                    if (!uid || currentType !== TYPE_OF_ELEMENTS[type]) {
                         const element = await wwLib.createElement(
                             TYPE_OF_ELEMENTS[type],
                             {},
@@ -163,9 +197,38 @@ export default {
                         this.$emit('update:content:effect', {
                             columnsElement: {
                                 ...this.content.columnsElement,
-                                [id]: { ...element, type: TYPE_OF_ELEMENTS[type] },
+                                [id]: element,
                             },
                         });
+                    }
+
+                    // Create editable custom column elements
+                    if (type === 'custom' && editable && editableType) {
+                        const editableUid =
+                            this.content.editableCustomColumnsElement[id] &&
+                            this.content.editableCustomColumnsElement[id].uid;
+                        const { wwObjectBaseId: currentEditableType } = editableUid
+                            ? wwLib.wwObjectHelper.getWwObject(editableUid) || {}
+                            : {};
+                        if (!editableUid || currentEditableType !== TYPE_OF_ELEMENTS[editableType]) {
+                            const element = await wwLib.createElement(
+                                TYPE_OF_ELEMENTS[editableType],
+                                {},
+                                { name: `Editable Cell - ${type}` },
+                                this.wwFrontState.sectionId
+                            );
+                            this.$emit('update:content:effect', {
+                                editableCustomColumnsElement: {
+                                    ...this.content.editableCustomColumnsElement,
+                                    [id]: element,
+                                },
+                            });
+                        }
+                        // Delete editable custom column elements
+                    } else if (this.content.editableCustomColumnsElement[id]) {
+                        const editableCustomColumnsElement = { ...this.content.editableCustomColumnsElement };
+                        delete editableCustomColumnsElement[id];
+                        this.$emit('update:content:effect', { editableCustomColumnsElement });
                     }
                 });
             },
@@ -192,7 +255,7 @@ export default {
         },
         removeColumn({ index }) {
             const columns = [...this.content.columns];
-            const col = columns.splice(index, 1);
+            const [col] = columns.splice(index, 1);
             let update = { columns };
             if (this.content.columnsElement[col.id]) {
                 const columnsElement = { ...this.content.columnsElement };
@@ -203,6 +266,11 @@ export default {
                 const headerTextElements = { ...this.content.headerTextElements };
                 delete headerTextElements[col.id];
                 update.headerTextElements = headerTextElements;
+            }
+            if (this.content.editableCustomColumnsElement[col.id]) {
+                const editableCustomColumnsElement = { ...this.content.editableCustomColumnsElement };
+                delete editableCustomColumnsElement[col.id];
+                update.editableCustomColumnsElement = editableCustomColumnsElement;
             }
             this.$emit('update:content', update);
         },
@@ -238,6 +306,35 @@ export default {
             };
         },
         /* wwEditor:end */
+        async toggleSort(column, index) {
+            if (!column.sortable) return;
+            const colName = column.name || index;
+            const order = colName === this.columnsSort.name && this.columnsSort.order === 'ASC' ? 'DESC' : 'ASC';
+            await this.setColumnsSort({
+                name: colName,
+                order,
+            });
+            if (column.sortable === 'dynamic') {
+                this.$emit('trigger-event', { name: 'sort', event: { order, name: colName } });
+            }
+        },
+        toggleAllSelection() {
+            const data = wwLib.wwCollection.getCollectionData(this.content.data);
+            if (!Array.isArray(data)) {
+                this.setSelectedRows([]);
+                return;
+            }
+            if (this.isAllSelected) {
+                this.setSelectedRows([]);
+            } else {
+                this.setSelectedRows(
+                    data.map(value => ({
+                        value,
+                        id: this.getRowId(value),
+                    }))
+                );
+            }
+        },
     },
 };
 </script>
@@ -314,6 +411,15 @@ export default {
         tr {
             vertical-align: var(--verticalAlignement);
         }
+    }
+
+    :deep(.-reversed) {
+        transform: rotate(180deg);
+        transition: transform 300ms ease-in-out;
+    }
+    .columnHeader {
+        display: flex;
+        align-items: center;
     }
 }
 </style>
