@@ -211,12 +211,6 @@ export default {
             section: 'settings',
             hidden: content => !content.inlineEditing,
         },
-        selectColumnWidth: {
-            label: 'Select Width',
-            type: 'Length',
-            section: 'settings',
-            hidden: content => !content.selectable,
-        },
         inlineEditing: {
             label: {
                 en: 'Inline editing',
@@ -242,6 +236,12 @@ export default {
             type: 'OnOff',
             defaultValue: false,
             section: 'settings',
+        },
+        selectColumnWidth: {
+            label: 'Select Width',
+            type: 'Length',
+            section: 'settings',
+            hidden: content => !content.selectable,
         },
         // HEADER
         displayHeader: {
