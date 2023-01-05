@@ -317,11 +317,10 @@ export default {
             const order = colName === this.columnsSort.name && this.columnsSort.order === 'ASC' ? 'DESC' : 'ASC';
             await this.setColumnsSort({
                 name: colName,
+                key: column.path,
                 order,
             });
-            if (column.sortable === 'dynamic') {
-                this.$emit('trigger-event', { name: 'sort', event: { order, name: colName } });
-            }
+            this.$emit('trigger-event', { name: 'sort', event: { order, name: colName } });
         },
         toggleAllSelection() {
             const data = wwLib.wwCollection.getCollectionData(this.content.data);
