@@ -186,6 +186,7 @@ export default {
                                 label: { en: 'Sortable' },
                                 type: 'OnOff',
                                 defaultValue: false,
+                                hidden: true,
                             },
                             id: {
                                 hidden: true,
