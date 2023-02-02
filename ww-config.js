@@ -186,6 +186,7 @@ export default {
                                 label: { en: 'Sortable' },
                                 type: 'OnOff',
                                 defaultValue: false,
+                                hidden: true,
                             },
                             id: {
                                 hidden: true,
@@ -541,8 +542,8 @@ export default {
             defaultValue: {
                 isWwObject: true,
                 type: 'ww-icon',
-                state: { name: 'Sort Icon' },
-                content: { icon: 'wwi wwi-chevron-down' },
+                state: { name: 'Sort Icon', style: { default: { cursor: 'pointer' } } },
+                content: { icon: 'icon-chevron-down' },
             },
             navigator: {
                 group: 'UI elements',
