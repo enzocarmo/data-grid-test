@@ -7,7 +7,7 @@
                 @click="$emit('update:is-selected', !isSelected)"
             ></wwElement>
         </td>
-        <template v-for="column in columns" :key="column.id">
+        <template v-for="(column, index) in columns" :key="column.id">
             <DataGridCell
                 v-if="column.display"
                 :ref="el => registerCellRef(column.id, el)"
@@ -15,7 +15,16 @@
                 :item="item"
                 :edit="column.editable && edit"
                 :columns-element="columnsElement"
+                :editable-custom-columns-element="editableCustomColumnsElement"
+                :row-unique-id="uniqueId"
             >
+                <form
+                    v-if="column.editable && edit && index === 0"
+                    :id="uniqueId"
+                    ref="form"
+                    hidden
+                    @submit.prevent="onSubmit"
+                ></form>
             </DataGridCell>
         </template>
         <span v-if="!columns || !columns.length" class="message ww-typo-sub-text flex items-center">
@@ -46,6 +55,7 @@ export default {
         item: { type: Object, required: true },
         columns: { type: Array, required: true },
         columnsElement: { type: Object, required: true },
+        editableCustomColumnsElement: { type: Object, required: true },
         isEditAvailable: { type: Boolean, default: false },
         editContainer: { type: Object, required: true },
         editingContainer: { type: Object, required: true },
@@ -58,10 +68,11 @@ export default {
     data() {
         return {
             cellRefs: {},
+            uniqueId: `form-row-${wwLib.wwUtils.getUid()}`,
         };
     },
     methods: {
-        onValidate() {
+        onSubmit() {
             const item = _.cloneDeep(this.item);
             Object.values(this.cellRefs).forEach(row => {
                 if (row.column && row.column.type !== 'custom') {
@@ -70,6 +81,20 @@ export default {
             });
             this.$emit('update:row', { value: item, id: this.id });
             this.$emit('update:edit', false);
+        },
+        onValidate() {
+            if (this.$refs.form) {
+                // We cannot just submit, as it will not call our trigger but use the native submit.
+                // So we just check validity
+                const isValid = this.$refs.form.checkValidity();
+                if (isValid) {
+                    this.onSubmit();
+                } else {
+                    this.$refs.form.reportValidity();
+                }
+            } else {
+                this.onSubmit();
+            }
         },
         onDelete() {
             this.$emit('delete:row', { id: this.id, value: this.item });

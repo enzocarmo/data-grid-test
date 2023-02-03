@@ -1,8 +1,13 @@
 <template>
     <td class="ww-data-grid-cell">
+        <slot></slot>
         <wwElement
             v-if="element && element.uid"
-            :ww-props="{ [isMultiSelect ? 'currentSelection' : 'value']: internalValue, readonly: !edit }"
+            :ww-props="{
+                [isMultiSelect ? 'currentSelection' : 'value']: internalValue,
+                readonly: !edit,
+                attributes: edit ? { form: rowUniqueId } : {},
+            }"
             :uid="element.uid"
             @element-event="onElementEvent"
         ></wwElement>
@@ -14,7 +19,6 @@
 
 <script>
 import { ref, computed, watch, toRef } from 'vue';
-import { TYPE_OF_ELEMENTS } from './constants';
 
 export default {
     expose: ['internalValue', 'column', 'resetValue'],
@@ -22,7 +26,9 @@ export default {
         column: { type: Object, required: true },
         item: { type: Object, required: true },
         columnsElement: { type: Object, required: true },
+        editableCustomColumnsElement: { type: Object, required: true },
         edit: { type: Boolean, default: false },
+        rowUniqueId: { required: true, type: String },
     },
     setup(props) {
         const value = computed(() => {
@@ -51,15 +57,26 @@ export default {
     },
     computed: {
         type() {
-            if (!this.element) return null;
-            return this.element.type;
+            if (!this.column) return null;
+            if (this.column.type === 'custom' && this.column.editable && this.edit) {
+                return this.column.editableType;
+            }
+            return this.column.type;
         },
         element() {
             if (!this.column) return null;
+            if (
+                this.column.type === 'custom' &&
+                this.column.editable &&
+                this.edit &&
+                this.editableCustomColumnsElement[this.column.id]
+            ) {
+                return this.editableCustomColumnsElement[this.column.id];
+            }
             return this.columnsElement[this.column.id];
         },
         isMultiSelect() {
-            return this.type === TYPE_OF_ELEMENTS['multiselect'];
+            return this.type === 'multiselect';
         },
     },
     methods: {
