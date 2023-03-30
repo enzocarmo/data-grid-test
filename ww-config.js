@@ -76,8 +76,15 @@ export default {
             section: 'settings',
             /* wwEditor:start */
             bindingValidation: {
-                type: 'array',
-                tooltip: 'A collection of data in array format: `[{}, {}, ...]`',
+                validations: [
+                    {
+                        type: 'array',
+                    },
+                    {
+                        type: 'object',
+                    },
+                ],
+                tooltip: 'A collection or an array of data: \n\n`myCollection` or `[{}, {}, ...]`',
             },
             /* wwEditor:end */
         },
