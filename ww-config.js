@@ -218,6 +218,9 @@ export default {
             type: 'Length',
             section: 'settings',
             hidden: content => !content.inlineEditing,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         inlineEditing: {
             label: {
@@ -250,6 +253,9 @@ export default {
             type: 'Length',
             section: 'settings',
             hidden: content => !content.selectable,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         // HEADER
         displayHeader: {
@@ -267,6 +273,9 @@ export default {
             type: 'OnOff',
             defaultValue: false,
             hidden: content => !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         headerBackgroundColor: {
             label: {
@@ -277,6 +286,9 @@ export default {
                 nullable: true,
             },
             hidden: content => !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         isTheadBorderSplit: {
             label: {
@@ -284,6 +296,9 @@ export default {
             },
             type: 'OnOff',
             hidden: content => !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         theadBorders: {
             label: {
@@ -291,6 +306,9 @@ export default {
             },
             type: 'Border',
             hidden: content => content.isTheadBorderSplit || !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         theadBordersVertical: {
             label: {
@@ -298,6 +316,9 @@ export default {
             },
             type: 'Border',
             hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         theadBordersHorizontal: {
             label: {
@@ -305,6 +326,9 @@ export default {
             },
             type: 'Border',
             hidden: content => !content.isTheadBorderSplit || !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         isThBorderSplit: {
             label: {
@@ -312,6 +336,9 @@ export default {
             },
             type: 'OnOff',
             hidden: content => !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         thBorders: {
             label: {
@@ -319,6 +346,9 @@ export default {
             },
             type: 'Border',
             hidden: content => content.isThBorderSplit || !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         thBordersVertical: {
             label: {
@@ -326,6 +356,9 @@ export default {
             },
             type: 'Border',
             hidden: content => !content.isThBorderSplit || !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         thBordersHorizontal: {
             label: {
@@ -333,6 +366,9 @@ export default {
             },
             type: 'Border',
             hidden: content => !content.isThBorderSplit || !content.displayHeader,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         // COLUMNS
         verticalAlignement: {
@@ -346,6 +382,9 @@ export default {
                 ],
             },
             default: 'top',
+            states: true,
+            responsive: true,
+            classes: true,
         },
         alternateBackground: {
             label: {
@@ -353,6 +392,9 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            states: true,
+            responsive: true,
+            classes: true,
         },
         rowBackgroundColor: {
             label: {
@@ -362,6 +404,9 @@ export default {
             options: {
                 nullable: true,
             },
+            states: true,
+            responsive: true,
+            classes: true,
         },
         rowBackgroundColorAlt: {
             label: {
@@ -371,6 +416,9 @@ export default {
             options: {
                 nullable: true,
             },
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => !content.alternateBackground,
         },
         rowBackgroundColorHover: {
@@ -378,6 +426,9 @@ export default {
                 en: 'Row Background color (hover)',
             },
             type: 'Color',
+            states: true,
+            responsive: true,
+            classes: true,
             options: {
                 nullable: true,
             },
@@ -390,12 +441,18 @@ export default {
             options: {
                 nullable: true,
             },
+            states: true,
+            responsive: true,
+            classes: true,
         },
         isTrBorderSplit: {
             label: {
                 en: 'Split row border',
             },
             type: 'OnOff',
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => !content.displayHeader,
         },
         trBorders: {
@@ -403,6 +460,9 @@ export default {
                 en: 'Row borders',
             },
             type: 'Border',
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => content.isTrBorderSplit || !content.displayHeader,
         },
         trBordersVertical: {
@@ -410,6 +470,9 @@ export default {
                 en: 'Row borders (vertical)',
             },
             type: 'Border',
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => !content.isTrBorderSplit || !content.displayHeader,
         },
         trBordersHorizontal: {
@@ -417,6 +480,9 @@ export default {
                 en: 'Row borders (horizontal)',
             },
             type: 'Border',
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => !content.isTrBorderSplit || !content.displayHeader,
         },
         isTdBorderSplit: {
@@ -424,6 +490,9 @@ export default {
                 en: 'Split cell border',
             },
             type: 'OnOff',
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => !content.displayHeader,
         },
         tdBorders: {
@@ -431,6 +500,9 @@ export default {
                 en: 'Cell borders',
             },
             type: 'Border',
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => content.isTdBorderSplit || !content.displayHeader,
         },
         tdBordersVertical: {
@@ -438,6 +510,9 @@ export default {
                 en: 'Cell borders (vertical)',
             },
             type: 'Border',
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => !content.isTdBorderSplit || !content.displayHeader,
         },
         tdBordersHorizontal: {
@@ -445,6 +520,9 @@ export default {
                 en: 'Cell borders (horizontal)',
             },
             type: 'Border',
+            states: true,
+            responsive: true,
+            classes: true,
             hidden: content => !content.isTdBorderSplit || !content.displayHeader,
         },
         // ELEMENTS
