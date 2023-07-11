@@ -83,14 +83,15 @@ export default {
             this.$emit('update:edit', false);
         },
         onValidate() {
-            if (this.$refs.form) {
+            const form = Array.isArray(this.$refs.form) ? this.$refs.form[0] : this.$refs.form;
+            if (form) {
                 // We cannot just submit, as it will not call our trigger but use the native submit.
                 // So we just check validity
-                const isValid = this.$refs.form.checkValidity();
+                const isValid = form.checkValidity();
                 if (isValid) {
                     this.onSubmit();
                 } else {
-                    this.$refs.form.reportValidity();
+                    form.reportValidity();
                 }
             } else {
                 this.onSubmit();
