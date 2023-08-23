@@ -79,7 +79,15 @@ export default {
                     _.set(item, row.column && row.column.path, _.cloneDeep(row.internalValue));
                 }
             });
-            this.$emit('update:row', { value: item, id: this.id });
+            this.$emit('update:row', {
+                value: item,
+                id: this.id,
+                cancel: () => {
+                    Object.values(this.cellRefs).forEach(row => {
+                        row.resetValue();
+                    });
+                },
+            });
             this.$emit('update:edit', false);
         },
         onValidate() {

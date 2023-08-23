@@ -49,7 +49,7 @@ export default {
         {
             name: 'update:row',
             label: { en: 'On Row update' },
-            event: { value: '', id: '' },
+            event: { value: '', id: '', cancel: () => {} },
             getTestEvent: 'getTestEvent',
             default: true,
         },
