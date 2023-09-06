@@ -1,5 +1,11 @@
 <template>
-    <table class="ww-data-grid" :style="cssVars" :class="{ sticky: content.hasStickyHeader }">
+    <table
+        class="ww-data-grid"
+        :style="cssVars"
+        :class="{ sticky: content.hasStickyHeader }"
+        cellpadding="0"
+        cellspacing="0"
+    >
         <colgroup>
             <col v-if="content.selectable" :style="{ width: content.selectColumnWidth || 'auto' }" />
             <template v-for="(column, index) in content.columns" :key="index">
