@@ -109,7 +109,9 @@ export default {
             type: 'Object',
         });
 
-        return { selectedRows, setSelectedRows, columnsSort, setColumnsSort };
+        const { createElement } = wwLib.useCreateElement();
+
+        return { selectedRows, setSelectedRows, columnsSort, setColumnsSort, createElement };
     },
     data() {
         return {
@@ -195,11 +197,11 @@ export default {
                     const { wwObjectBaseId: currentType } = uid ? wwLib.wwObjectHelper.getWwObject(uid) || {} : {};
                     const isLegacy = (LEGACY_TYPE_OF_ELEMENTS[type] || []).includes(currentType);
                     if (!uid || (currentType !== TYPE_OF_ELEMENTS[type] && !isLegacy)) {
-                        const element = await wwLib.createElement(
+                        const element = await this.createElement(
                             TYPE_OF_ELEMENTS[type],
-                            {},
-                            { name: `Cell - ${type}` },
-                            this.wwFrontState.sectionId
+                            {
+                                _state: { name: `Cell - ${type}` }
+                            }
                         );
                         this.$emit('update:content:effect', {
                             columnsElement: {
@@ -219,11 +221,11 @@ export default {
                             ? wwLib.wwObjectHelper.getWwObject(editableUid) || {}
                             : {};
                         if (!editableUid || currentEditableType !== TYPE_OF_ELEMENTS[editableType]) {
-                            const element = await wwLib.createElement(
+                            const element = await this.createElement(
                                 TYPE_OF_ELEMENTS[editableType],
-                                {},
-                                { name: `Editable Cell - ${type}` },
-                                this.wwFrontState.sectionId
+                                {
+                                    _state: { name: `Editable Cell - ${type}` },
+                                }
                             );
                             this.$emit('update:content:effect', {
                                 editableCustomColumnsElement: {
@@ -256,11 +258,11 @@ export default {
             const id = wwLib.wwUtils.getUid();
             columns.push({ id, type: 'text', display: true, editable: true });
             const headerTextElements = { ...this.content.headerTextElements };
-            headerTextElements[id] = await wwLib.createElement(
+            headerTextElements[id] = await this.createElement(
                 'ww-text',
-                {},
-                { name: `Header ${columns.length}` },
-                this.wwFrontState.sectionId
+                {
+                    _state: { name: `Header ${columns.length}` },
+                }
             );
             this.$emit('update:content', { columns, headerTextElements });
         },
