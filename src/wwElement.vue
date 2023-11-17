@@ -109,9 +109,19 @@ export default {
             type: 'Object',
         });
 
+        /* wwEditor:start */
         const { createElement } = wwLib.useCreateElement();
+        /* wwEditor:end */
 
-        return { selectedRows, setSelectedRows, columnsSort, setColumnsSort, createElement };
+        return { 
+            selectedRows, 
+            setSelectedRows, 
+            columnsSort, 
+            setColumnsSort, 
+            /* wwEditor:start */
+            createElement 
+            /* wwEditor:end */
+        };
     },
     data() {
         return {
