@@ -632,6 +632,7 @@ export default {
             },
             navigator: {
                 group: 'UI elements',
+                hidden: true,
             },
         },
     },
