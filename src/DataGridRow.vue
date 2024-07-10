@@ -18,13 +18,7 @@
                 :editable-custom-columns-element="editableCustomColumnsElement"
                 :row-unique-id="uniqueId"
             >
-                <form
-                    v-if="column.editable && edit && index === 0"
-                    :id="uniqueId"
-                    ref="form"
-                    hidden
-                    @submit.prevent="onSubmit"
-                ></form>
+                <form v-if="edit && index === 0" :id="uniqueId" ref="form" hidden @submit.prevent="onSubmit"></form>
             </DataGridCell>
         </template>
         <span v-if="!columns || !columns.length" class="message ww-typo-sub-text flex items-center">
