@@ -45,6 +45,9 @@ export default {
             ['thBorders', 'thBordersVertical', 'thBordersHorizontal'],
         ],
     },
+    options: {
+        displayAllowedValues: ['table', 'inline-table'],
+    },
     triggerEvents: [
         {
             name: 'update:row',
