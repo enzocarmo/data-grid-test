@@ -36,8 +36,10 @@ export default {
         editContainer: { type: Object, required: true },
         editingContainer: { type: Object, required: true },
         edit: { type: Boolean, default: false },
+        isEditing: { type: Boolean, default: false },
     },
     emits: ['update:edit', 'validate', 'delete', 'cancel'],
+
     methods: {
         onEditContainerEvent(event) {
             /* wwEditor:start */
