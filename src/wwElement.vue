@@ -188,7 +188,7 @@ export default {
             return false;
         },
         isAllSelected() {
-            const data = wwLib.wwCollection.getCollectionData(this.content.data);
+            const data = wwLib.wwUtils.getDataFromCollection(this.content.data);
             if (!Array.isArray(data)) {
                 return false;
             }
@@ -322,7 +322,7 @@ export default {
         },
         /* wwEditor:start */
         getTestEvent() {
-            const data = wwLib.wwCollection.getCollectionData(this.content.data);
+            const data = wwLib.wwUtils.getDataFromCollection(this.content.data);
             if (!data || !data[0]) throw new Error('No data found');
             return {
                 id: _.get(data[0], this.content.dataIdPath) || 0,
@@ -342,7 +342,7 @@ export default {
             this.$emit('trigger-event', { name: 'sort', event: { order, name: colName } });
         },
         toggleAllSelection() {
-            const data = wwLib.wwCollection.getCollectionData(this.content.data);
+            const data = wwLib.wwUtils.getDataFromCollection(this.content.data);
             if (!Array.isArray(data)) {
                 this.setSelectedRows([]);
                 return;
