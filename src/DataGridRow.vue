@@ -27,6 +27,7 @@
         <DataGridActionCell
             v-if="isEditAvailable"
             :id="id"
+            :is-editing="isEditing"
             :edit-container="editContainer"
             :editing-container="editingContainer"
             :edit="edit"
@@ -57,6 +58,9 @@ export default {
         edit: { type: Boolean, default: false },
         selectable: { type: Boolean, default: false },
         isSelected: { type: Boolean, default: false },
+        /* wwEditor:start */
+        isEditing: { type: Boolean, default: false },
+        /* wwEditor:end */
     },
     emits: ['update:edit', 'update:row', 'delete:row', 'update:is-selected'],
     data() {

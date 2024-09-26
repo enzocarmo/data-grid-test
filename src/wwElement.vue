@@ -59,6 +59,7 @@
                     :columns-element="content.columnsElement"
                     :editable-custom-columns-element="content.editableCustomColumnsElement"
                     :is-edit-available="content.inlineEditing"
+                    :is-editing="isEditing"
                     :edit="
                         (forcedInlineEditing && rowIndex === 0) ||
                         (content.inlineEditing && editingId !== undefined && getRowId(item) === editingId)
